@@ -149,6 +149,7 @@ const stats = [
 ];
 
 import CloudinarySlideshowMinimalHero from "@/components/sections/hero";
+import { InfiniteServicesSlider } from "@/components/ui/services-infinite-loop";
 
 export default function HomePage() {
   return (
@@ -180,50 +181,8 @@ export default function HomePage() {
         </div>
       </motion.section>
 
-      {/* Services Section */}
-      <motion.section
-        variants={sectionStagger(0.08)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-10% 0px" }}
-        className="section-padding"
-      >
-        <div className="container mx-auto container-gutter">
-          <SectionHeading
-            badge="Our Expertise"
-            title="Comprehensive Healthcare Services"
-            description="From routine checkups to emergency care, we offer a full spectrum of medical services tailored to your needs."
-          />
-
-          <div className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {services.map((service, index) => (
-              <ServiceCard
-                key={service.title}
-                icon={service.icon}
-                title={service.title}
-                description={service.description}
-                featured={service.featured}
-                delay={index * 0.05}
-              />
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-12 text-center"
-          >
-            <Button asChild variant="outline" size="lg" className="group">
-              <Link href="/services">
-                View All Services
-                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </Button>
-          </motion.div>
-        </div>
-      </motion.section>
+      {/* Infinite Services Slider Section */}
+      <InfiniteServicesSlider />
 
       {/* Why Choose Us Section */}
       <motion.section
