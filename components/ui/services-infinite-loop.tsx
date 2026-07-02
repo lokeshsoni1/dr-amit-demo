@@ -68,18 +68,15 @@ export function InfiniteServicesSlider() {
   ];
 
   return (
-    <div className="w-full py-20 lg:py-32 bg-[#09090b] overflow-hidden border-t border-white/5">
+    <div className="w-full py-20 lg:py-32 bg-sky-50/70 overflow-hidden border-t border-sky-100">
       <div className="container mx-auto px-4 md:px-6 max-w-7xl">
         <div className="flex flex-col gap-10">
           
           {/* Dynamic Core Header Section */}
-          <div className="flex flex-col space-y-2">
-            <h2 className="text-3xl md:text-5xl lg:text-6xl tracking-tighter font-bold text-left text-white max-w-4xl leading-[1.15]">
-              Redefining Dental Excellence <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-400 block sm:inline">Through Trust and Clinical Innovation.</span>
+          <div className="flex flex-col space-y-2 items-center text-center">
+            <h2 className="text-3xl md:text-5xl lg:text-6xl tracking-tighter font-bold text-zinc-900 max-w-4xl leading-[1.15]">
+              Redefining Dental Excellence <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 block sm:inline">Through Trust and Clinical Innovation.</span>
             </h2>
-            <p className="text-xs md:text-sm font-mono tracking-widest text-zinc-500 uppercase mt-1">
-              // Data Diagnostics & Core Metrics Portfolio
-            </p>
           </div>
           
           {/* Hardware-Accelerated 120FPS Carousel Grid System */}
