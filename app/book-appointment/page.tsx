@@ -9,13 +9,13 @@ import {
   User,
   Phone,
   Mail,
-  Home,
-  Stethoscope,
-  CheckCircle2,
   Shield,
   MessageSquare,
   ArrowRight,
   Info,
+  Award,
+  Users,
+  Stethoscope
 } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -25,14 +25,11 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
 const services = [
-  "General Consultation",
-  "Diabetes Management",
-  "Emergency Care",
-  "IV Fluids & Hydration",
-  "Home Visit",
-  "Oxygen Support",
-  "Diagnostics",
-  "Wellness Checkup",
+  "Cosmetic Dentistry & Smile Design",
+  "Advanced Orthodontics & Invisalign",
+  "Precision Root Canal Therapy",
+  "Neuromuscular Oral Sedation",
+  "Preventative Bio-Telemetry Mapping",
 ];
 
 const timeSlots = [
@@ -70,25 +67,17 @@ export default function BookAppointmentPage() {
   const [selectedService, setSelectedService] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
-  const [isHomeVisit, setIsHomeVisit] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
-    address: "",
     notes: "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log({
-      service: selectedService,
-      date: selectedDate,
-      time: selectedTime,
-      isHomeVisit,
-      ...formData,
-    });
+    // Redirect to Calendly confirmation target pipeline
+    window.location.href = "https://calendly.com/venzorx-co/30min";
   };
 
   return (
@@ -153,14 +142,14 @@ export default function BookAppointmentPage() {
                     </span>
                     Select Service
                   </h3>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {services.map((service) => (
                       <button
                         key={service}
                         type="button"
                         onClick={() => setSelectedService(service)}
                         className={cn(
-                          "p-4 rounded-xl border text-left transition-all duration-200",
+                          "p-4 rounded-xl border text-left transition-all duration-200 cursor-pointer",
                           selectedService === service
                             ? "border-accent bg-accent/10 text-foreground"
                             : "border-border hover:border-accent/50 text-muted-foreground hover:text-foreground"
@@ -170,55 +159,6 @@ export default function BookAppointmentPage() {
                       </button>
                     ))}
                   </div>
-                </div>
-
-                {/* Home Visit Toggle */}
-                <div>
-                  <button
-                    type="button"
-                    onClick={() => setIsHomeVisit(!isHomeVisit)}
-                    className={cn(
-                      "w-full p-5 rounded-xl border flex items-center gap-4 transition-all duration-200",
-                      isHomeVisit
-                        ? "border-accent bg-accent/10"
-                        : "border-border hover:border-accent/50"
-                    )}
-                  >
-                    <div
-                      className={cn(
-                        "w-12 h-12 rounded-xl flex items-center justify-center",
-                        isHomeVisit ? "bg-accent" : "bg-primary/10"
-                      )}
-                    >
-                      <Home
-                        className={cn(
-                          "w-6 h-6",
-                          isHomeVisit ? "text-accent-foreground" : "text-primary"
-                        )}
-                      />
-                    </div>
-                    <div className="flex-1 text-left">
-                      <p className="font-medium text-foreground">
-                        Home Visit Required?
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        We&apos;ll come to your location in Manhattan/NYC
-                      </p>
-                    </div>
-                    <div
-                      className={cn(
-                        "w-12 h-7 rounded-full p-1 transition-colors",
-                        isHomeVisit ? "bg-accent" : "bg-border"
-                      )}
-                    >
-                      <div
-                        className={cn(
-                          "w-5 h-5 rounded-full bg-white transition-transform",
-                          isHomeVisit ? "translate-x-5" : "translate-x-0"
-                        )}
-                      />
-                    </div>
-                  </button>
                 </div>
 
                 {/* Date & Time */}
@@ -257,7 +197,7 @@ export default function BookAppointmentPage() {
                             type="button"
                             onClick={() => setSelectedTime(time)}
                             className={cn(
-                              "p-2 rounded-lg border text-xs font-medium transition-all duration-200",
+                              "p-2 rounded-lg border text-xs font-medium transition-all duration-200 cursor-pointer",
                               selectedTime === time
                                 ? "border-accent bg-accent/10 text-foreground"
                                 : "border-border hover:border-accent/50 text-muted-foreground"
@@ -318,7 +258,7 @@ export default function BookAppointmentPage() {
                         />
                       </div>
                     </div>
-                    <div>
+                    <div className="md:col-span-2">
                       <Label htmlFor="email" className="text-foreground mb-2 block">
                         Email Address
                       </Label>
@@ -336,27 +276,6 @@ export default function BookAppointmentPage() {
                         />
                       </div>
                     </div>
-                    {isHomeVisit && (
-                      <div>
-                        <Label htmlFor="address" className="text-foreground mb-2 block">
-                          Home Address
-                        </Label>
-                        <div className="relative">
-                          <Home className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                          <Input
-                            id="address"
-                            type="text"
-                            placeholder="Full address for home visit"
-                            value={formData.address}
-                            onChange={(e) =>
-                              setFormData({ ...formData, address: e.target.value })
-                            }
-                            className="pl-12 h-12"
-                            required
-                          />
-                        </div>
-                      </div>
-                    )}
                   </div>
                   <div className="mt-6">
                     <Label htmlFor="notes" className="text-foreground mb-2 block">
@@ -379,7 +298,7 @@ export default function BookAppointmentPage() {
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full sm:w-auto min-h-11 glass-dark text-primary-foreground shadow-glow text-base px-10 sm:px-12"
+                    className="w-full sm:w-auto min-h-11 bg-primary hover:bg-primary/95 text-primary-foreground shadow-glow text-base px-10 sm:px-12"
                   >
                     <Calendar className="w-5 h-5 mr-2" />
                     Confirm Appointment
@@ -393,7 +312,7 @@ export default function BookAppointmentPage() {
                     <Link href="/privacy" className="text-primary hover:underline">
                       privacy policy
                     </Link>
-                    .
+                    . All procedures are conducted inside our sterile state-of-the-art operatory suites.
                   </p>
                 </div>
               </form>

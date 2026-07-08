@@ -25,12 +25,11 @@ const quickLinks = [
 ];
 
 const services = [
-  "General Physician",
-  "Diabetes Management",
-  "Emergency Care",
-  "IV Fluids & Hydration",
-  "Home Visit Support",
-  "Oxygen Support",
+  "Cosmetic Dentistry & Smile Design",
+  "Advanced Orthodontics & Invisalign",
+  "Precision Root Canal Therapy",
+  "Neuromuscular Oral Sedation",
+  "Preventative Bio-Telemetry Mapping",
 ];
 
 const socialLinks = [

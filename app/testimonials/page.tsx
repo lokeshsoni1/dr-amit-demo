@@ -1,101 +1,77 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Star, Quote, Calendar, ArrowRight, Users } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { SectionHeading } from "@/components/section-heading";
-import { TestimonialCard } from "@/components/testimonial-card";
 import { Button } from "@/components/ui/button";
+import { TestimonialsColumn } from "@/components/ui/testimonials-columns-1";
 
-const testimonials = [
+// 9 diverse real-world dental testimonials for the 3 columns
+const col1 = [
   {
-    name: "Sarah Jenkins",
-    role: "Patient since 2019",
-    content:
-      "Dr. Bethany's attention to detail and genuine concern for my dental health has made all the difference. The mobile care service during my recovery was exceptional. I couldn't have asked for better care.",
-    rating: 5,
+    text: "Invisalign treatment was flawless. My smile is completely straight and the process was virtually invisible.",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=120&auto=format&fit=crop",
+    name: "Liam Vance",
+    role: "Creative Director"
   },
   {
-    name: "Robert Miller",
-    role: "Preventative Care Patient",
-    content:
-      "Managing my oral health has become so much easier with Dr. Bethany's guidance. Her personalized approach and regular monitoring have transformed my health.",
-    rating: 5,
-    featured: true,
+    text: "Root canal was absolute zero pain. Dr. Sarah used advanced sedation and it was over before I knew it.",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=120&auto=format&fit=crop",
+    name: "Elena Rostova",
+    role: "Product Manager"
   },
   {
-    name: "Emily Davis",
-    role: "Family Healthcare",
-    content:
-      "Our entire family trusts Bethany Dental Care for all our dental needs. The clinic is modern, clean, and the staff is incredibly professional. Dr. Bethany treats us like family.",
-    rating: 5,
+    text: "The Preventative Bio-Telemetry Mapping saved my enamel. They caught my night friction early.",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=120&auto=format&fit=crop",
+    name: "Arthur Pendelton",
+    role: "Financial Analyst"
+  }
+];
+
+const col2 = [
+  {
+    text: "Cosmetic Smile Design exceeded all expectations. My confidence has skyrocketed!",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=120&auto=format&fit=crop",
+    name: "Chloe Henderson",
+    role: "Marketing Lead"
   },
   {
-    name: "Jack Peterson",
-    role: "Emergency Care Patient",
-    content:
-      "When my father had a dental emergency at midnight, Dr. Bethany was available immediately. Her quick response and expert care saved my father's health. We are forever grateful.",
-    rating: 5,
+    text: "State-of-the-art Rockefeller suite is spectacular. Zero anxiety dental care at its finest.",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=120&auto=format&fit=crop",
+    name: "David Kim",
+    role: "Software Architect"
   },
   {
-    name: "Margaret Sullivan",
-    role: "Mobile Care Patient",
-    content:
-      "As an elderly patient with mobility issues, the mobile home visit service has been a blessing. Dr. Bethany comes to my home for regular checkups, making dental care truly accessible.",
-    rating: 5,
+    text: "Advanced Orthodontics resolved my bite alignment issues. Outstanding clinical professionalism.",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=120&auto=format&fit=crop",
+    name: "Sofia Martinez",
+    role: "UX Designer"
+  }
+];
+
+const col3 = [
+  {
+    text: "The Neuromuscular Oral Sedation is a game changer for dental phobia. Truly anxiety-free.",
+    image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=120&auto=format&fit=crop",
+    name: "James O'Connor",
+    role: "Executive Director"
   },
   {
-    name: "Michael Chang",
-    role: "Wellness Program",
-    content:
-      "The comprehensive wellness checkup at Bethany Dental Care helped detect early signs of a condition I wasn't aware of. Early detection and Dr. Bethany's treatment plan have been life-changing.",
-    rating: 5,
+    text: "Clean, sterile suites and absolute scheduling precision. I was in the chair within 2 minutes.",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=120&auto=format&fit=crop",
+    name: "Yasmin Al-Fayed",
+    role: "Managing Director"
   },
   {
-    name: "Amanda Ross",
-    role: "Patient since 2020",
-    content:
-      "What sets Dr. Bethany apart is that she actually listens. She takes time to understand your concerns and explains everything clearly. It's rare to find such patient-centered care.",
-    rating: 5,
-  },
-  {
-    name: "Thomas Clark",
-    role: "Cosmetic Patient",
-    content:
-      "I received professional cosmetic dentistry at Bethany Dental Care and the results were incredible. The treatment was administered safely and professionally, and I couldn't be happier.",
-    rating: 5,
-  },
-  {
-    name: "Laura Bennett",
-    role: "Regular Patient",
-    content:
-      "From the warm reception to Dr. Bethany's thorough consultation, every aspect of the experience is premium. The clinic maintains the highest standards of hygiene and care.",
-    rating: 5,
-    featured: true,
-  },
-  {
-    name: "Kevin Murphy",
-    role: "Corporate Dental Program",
-    content:
-      "Our company chose Bethany Dental Care for employee dental screenings, and it was an excellent decision. The process was efficient, and the reports were detailed and helpful.",
-    rating: 5,
-  },
-  {
-    name: "Sandra Collins",
-    role: "Preventative Patient",
-    content:
-      "Living with chronic sensitivity is challenging, but Dr. Bethany's continuous support and optimistic approach have given me hope. She goes beyond treating symptoms to improving quality of life.",
-    rating: 5,
-  },
-  {
-    name: "Steven Wright",
-    role: "Patient since 2017",
-    content:
-      "I've been Dr. Bethany's patient for over 7 years now. His consistency in providing excellent care and his knowledge of my dental history makes every consultation effective.",
-    rating: 5,
-  },
+    text: "Their emergency cosmetic reconstruction resolved my fractured crown on a Saturday afternoon.",
+    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=120&auto=format&fit=crop",
+    name: "Marcus Brody",
+    role: "Operations Lead"
+  }
 ];
 
 const stats = [
@@ -142,7 +118,7 @@ export default function TestimonialsPage() {
               className="text-base sm:text-xl text-muted-foreground max-w-2xl leading-relaxed"
             >
               Real stories from real patients. Discover why thousands of
-              families trust Bethany Dental Care for their oral healthcare needs.
+              professionals trust Bethany Dental Care for their elite oral healthcare needs.
             </motion.p>
           </div>
         </div>
@@ -194,10 +170,8 @@ export default function TestimonialsPage() {
               </div>
               <blockquote className="text-lg sm:text-xl lg:text-2xl font-medium leading-relaxed mb-8">
                 &quot;Dr. Bethany is not just a dentist; she&apos;s a healer in the truest
-                sense. His dedication to patient care, combined with his
-                expertise, creates an unparalleled healthcare experience. Our
-                family has been under his care for years, and we couldn&apos;t be
-                more grateful.&quot;
+                sense. Her dedication to patient care, combined with state-of-the-art dental
+                technology, creates an unparalleled healthcare experience.&quot;
               </blockquote>
               <div className="flex items-center justify-center gap-4">
                 <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center text-2xl font-semibold text-accent">
@@ -215,27 +189,23 @@ export default function TestimonialsPage() {
         </div>
       </section>
 
-      {/* All Testimonials */}
-      <section className="section-padding bg-muted/30">
-        <div className="container mx-auto container-gutter">
+      {/* All Testimonials - Infinite Column Marquee Track */}
+      <section className="section-padding bg-muted/30 overflow-hidden relative">
+        <div className="container mx-auto container-gutter relative z-20">
           <SectionHeading
             badge="Patient Stories"
-            title="More Reviews From Our Community"
-            description="Each testimonial represents a patient's journey with us — their trust, their recovery, and their satisfaction."
+            title="Continuous Dental Excellence"
+            description="Our live scrolling reviews demonstrate the consistent results of our zero-anxiety clinical methodology."
           />
 
-          <div className="mt-12 sm:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {testimonials.map((testimonial, index) => (
-              <TestimonialCard
-                key={testimonial.name}
-                name={testimonial.name}
-                role={testimonial.role}
-                content={testimonial.content}
-                rating={testimonial.rating}
-                featured={testimonial.featured}
-                delay={index * 0.05}
-              />
-            ))}
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 max-h-[600px] overflow-hidden relative justify-center">
+            {/* Top/Bottom Fade Overlays */}
+            <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-background/90 via-background/40 to-transparent z-10 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-background/90 via-background/40 to-transparent z-10 pointer-events-none" />
+
+            <TestimonialsColumn testimonials={col1} duration={15} className="flex justify-center" />
+            <TestimonialsColumn testimonials={col2} duration={19} className="flex justify-center" />
+            <TestimonialsColumn testimonials={col3} duration={17} className="flex justify-center" />
           </div>
         </div>
       </section>
@@ -257,7 +227,7 @@ export default function TestimonialsPage() {
               Join Our Growing Family of Satisfied Patients
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground mb-8 sm:mb-10">
-              Experience the difference of personalized, compassionate healthcare.
+              Experience the difference of personalized, compassionate oral healthcare.
               Book your consultation today and become part of our community.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">

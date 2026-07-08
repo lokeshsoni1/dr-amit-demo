@@ -150,6 +150,7 @@ const stats = [
 
 import CloudinarySlideshowMinimalHero from "@/components/sections/hero";
 import { InfiniteServicesSlider } from "@/components/ui/services-infinite-loop";
+import { AnimatedTestimonials } from "@/components/ui/testimonial";
 
 export default function HomePage() {
   return (
@@ -214,7 +215,7 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="text-center"
+                className="text-center p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:scale-[1.04] hover:-translate-y-1.5 hover:bg-gradient-to-br hover:from-sky-500/10 hover:via-blue-600/5 hover:to-transparent transform-gpu will-change-transform shadow-lg"
               >
                 <div className="w-16 h-16 rounded-2xl bg-accent/20 flex items-center justify-center mx-auto mb-5">
                   <value.icon className="w-8 h-8 text-accent" />
@@ -231,222 +232,223 @@ export default function HomePage() {
         </div>
       </motion.section>
 
-      {/* Doctor Section */}
-      <motion.section
-        variants={sectionStagger(0.08)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-10% 0px" }}
-        className="section-padding"
-      >
-        <div className="container mx-auto container-gutter">
-          <div className="grid lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-20 items-center">
-            {/* Image */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="relative"
-            >
-              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10">
-                <Image
-                  src="https://images.pexels.com/photos/6129052/pexels-photo-6129052.jpeg?auto=compress&cs=tinysrgb&w=1200"
-                  alt="Portrait of a senior doctor in a premium private clinic"
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 480px, (min-width: 768px) 380px, 320px"
-                  className="object-cover"
-                />
-              </div>
-              {/* Floating Card */}
+      {/* Unified Operatory Section Wrapper */}
+      <div className="relative overflow-hidden bg-transparent">
+        {/* Background Image Layer running cleanly underneath */}
+        <div 
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat pointer-events-none opacity-[0.03] transform-gpu filter blur-[2px]" 
+          style={{ 
+            backgroundImage: `url('https://res.cloudinary.com/dbpdexty8/image/upload/v1783538213/Modern_dental_operatory_interior__2K_202607090041_ukinvc.jpg')` 
+          }}
+        />
+
+        {/* Doctor Section */}
+        <motion.section
+          variants={sectionStagger(0.08)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-10% 0px" }}
+          className="section-padding relative z-10"
+        >
+          <div className="container mx-auto container-gutter">
+            <div className="grid lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-20 items-center">
+              {/* Image */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="absolute -bottom-6 right-4 sm:-right-6 lg:right-6 bg-card border border-border rounded-2xl p-4 sm:p-6 shadow-soft max-w-[240px] sm:max-w-[280px]"
+                transition={{ duration: 0.6 }}
+                className="relative"
               >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
-                    <Award className="w-6 h-6 text-accent" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground">15+ Years</p>
-                    <p className="text-sm text-muted-foreground">
-                      Medical Experience
-                    </p>
-                  </div>
+                <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10">
+                  <Image
+                    src="https://res.cloudinary.com/dbpdexty8/image/upload/v1783536399/ChatGPT_Image_Jul_9_2026_12_14_21_AM_hspagz.png"
+                    alt="Portrait of Dr. Sarah Bethany in a premium private clinic"
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 480px, (min-width: 768px) 380px, 320px"
+                    className="object-cover"
+                  />
                 </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <Users className="w-6 h-6 text-primary" />
+                {/* Floating Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="absolute -bottom-6 right-4 sm:-right-6 lg:right-6 bg-card border border-border rounded-2xl p-4 sm:p-6 shadow-soft max-w-[240px] sm:max-w-[280px]"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">
+                      <Users className="w-6 h-6 text-accent" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground">15+ Years</p>
+                      <p className="text-sm text-muted-foreground">
+                        Dental Experience
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-semibold text-foreground">5000+</p>
-                    <p className="text-sm text-muted-foreground">
-                      Patients Treated
-                    </p>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                      <CheckCircle2 className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground">5000+</p>
+                      <p className="text-sm text-muted-foreground">
+                        Patients Treated
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </motion.div>
               </motion.div>
-            </motion.div>
 
-            {/* Content */}
+              {/* Content */}
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <span className="inline-block px-4 py-1.5 rounded-full bg-primary/5 text-xs font-medium tracking-wide uppercase text-primary mb-4">
+                  Meet Your Doctor
+                </span>
+                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-5 sm:mb-6">
+                  Dr. Sarah Bethany
+                </h2>
+                <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                  With over 15 years of dedicated dental practice, Dr. Sarah
+                  Bethany brings a unique combination of clinical expertise and
+                  compassionate care to every patient interaction.
+                </p>
+                <p className="text-muted-foreground leading-relaxed mb-8">
+                  After completing her DDS and DMD from prestigious institutions,
+                  Dr. Bethany has been serving the New York City community with a
+                  patient-first philosophy. Her approach combines modern dental
+                  practices with personalized attention, ensuring each patient
+                  receives care tailored to their specific needs.
+                </p>
+
+                {/* Qualifications */}
+                <div className="space-y-3 mb-8">
+                  {[
+                    "DDS/DMD from Columbia University",
+                    "Residency in General Dentistry",
+                    "Fellowship in Cosmetic & Implant Dentistry",
+                    "Member of American Dental Association",
+                  ].map((qual, index) => (
+                    <div key={index} className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-accent shrink-0" />
+                      <span className="text-foreground">{qual}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <Button asChild size="lg" className="group">
+                  <Link href="/about">
+                    Read Full Biography
+                    <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </Button>
+              </motion.div>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* Testimonials Section */}
+        <motion.section
+          variants={sectionStagger(0.08)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-10% 0px" }}
+          className="section-padding relative z-20"
+        >
+          <div className="container mx-auto container-gutter relative z-20">
+            <SectionHeading
+              badge="Testimonials"
+              title="What Our Patients Say"
+              description="Don't just take our word for it. Hear from families who have experienced the Bethany Dental Care difference."
+            />
+
+            <div className="mt-12 relative z-20">
+              <AnimatedTestimonials />
+            </div>
+
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="mt-12 text-center relative z-20"
             >
-              <span className="inline-block px-4 py-1.5 rounded-full bg-primary/5 text-xs font-medium tracking-wide uppercase text-primary mb-4">
-                Meet Your Doctor
-              </span>
-              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-5 sm:mb-6">
-                Dr. Sarah Bethany
-              </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                With over 15 years of dedicated dental practice, Dr. Sarah
-                Bethany brings a unique combination of clinical expertise and
-                compassionate care to every patient interaction.
-              </p>
-              <p className="text-muted-foreground leading-relaxed mb-8">
-                After completing her DDS and DMD from prestigious institutions,
-                Dr. Bethany has been serving the New York City community with a
-                patient-first philosophy. Her approach combines modern dental
-                practices with personalized attention, ensuring each patient
-                receives care tailored to their specific needs.
-              </p>
-
-              {/* Qualifications */}
-              <div className="space-y-3 mb-8">
-                {[
-                  "DDS/DMD from Columbia University",
-                  "Residency in General Dentistry",
-                  "Fellowship in Cosmetic & Implant Dentistry",
-                  "Member of American Dental Association",
-                ].map((qual, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-accent shrink-0" />
-                    <span className="text-foreground">{qual}</span>
-                  </div>
-                ))}
-              </div>
-
-              <Button asChild size="lg" className="group">
-                <Link href="/about">
-                  Read Full Biography
+              <Button asChild variant="outline" size="lg" className="group">
+                <Link href="/testimonials">
+                  Read More Reviews
                   <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
             </motion.div>
           </div>
-        </div>
-      </motion.section>
+        </motion.section>
 
-      {/* Testimonials Section */}
-      <motion.section
-        variants={sectionStagger(0.08)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-10% 0px" }}
-        className="section-padding bg-muted/30"
-      >
-        <div className="container mx-auto container-gutter">
-          <SectionHeading
-            badge="Testimonials"
-            title="What Our Patients Say"
-            description="Don't just take our word for it. Hear from families who have experienced the Bethany Dental Care difference."
-          />
-
-          <div className="mt-12 sm:mt-16 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-            {testimonials.map((testimonial, index) => (
-              <TestimonialCard
-                key={testimonial.name}
-                name={testimonial.name}
-                role={testimonial.role}
-                content={testimonial.content}
-                rating={testimonial.rating}
-                featured={testimonial.featured}
-                delay={index * 0.1}
-              />
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-12 text-center"
-          >
-            <Button asChild variant="outline" size="lg" className="group">
-              <Link href="/testimonials">
-                Read More Reviews
-                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </Button>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* CTA Section */}
-      <motion.section
-        variants={sectionStagger(0.08)}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-10% 0px" }}
-        className="section-padding"
-      >
-        <div className="container mx-auto container-gutter">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="relative bg-gradient-to-br from-primary via-primary to-navy rounded-3xl p-6 sm:p-8 lg:p-16 overflow-hidden"
-          >
-            {/* Background */}
-            <div className="absolute inset-0 opacity-20">
-              <div className="absolute top-0 right-0 w-96 h-96 bg-accent rounded-full blur-3xl" />
-              <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-cyan rounded-full blur-3xl" />
-            </div>
-
-            <div className="relative text-center max-w-3xl mx-auto">
-              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-primary-foreground mb-5 sm:mb-6 text-balance">
-                Ready to Experience Premium Healthcare?
-              </h2>
-              <p className="text-base sm:text-lg text-primary-foreground/80 mb-8 sm:mb-10 text-pretty">
-                Schedule your consultation today and take the first step towards
-                better health. Home visits available across Manhattan and New York City.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-accent hover:bg-accent/90 text-accent-foreground text-base px-8 w-full sm:w-auto"
-                >
-                  <Link href="/book-appointment">
-                    <Calendar className="w-5 h-5 mr-2" />
-                    Book Appointment
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 text-base px-8 w-full sm:w-auto"
-                >
-                  <Link href="tel:+12125550199">
-                    <Phone className="w-5 h-5 mr-2" />
-                    Call Now
-                  </Link>
-                </Button>
+        {/* CTA Section */}
+        <motion.section
+          variants={sectionStagger(0.08)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-10% 0px" }}
+          className="section-padding relative z-10"
+        >
+          <div className="container mx-auto container-gutter">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative border border-primary/10 dark:border-white/10 bg-slate-500/5 dark:bg-white/5 backdrop-blur-md rounded-3xl p-6 sm:p-8 lg:p-16 overflow-hidden"
+            >
+              {/* Background Glows */}
+              <div className="absolute inset-0 opacity-10 pointer-events-none">
+                <div className="absolute top-0 right-0 w-96 h-96 bg-accent rounded-full blur-3xl" />
+                <div className="absolute bottom-0 left-1/2 w-96 h-96 bg-cyan rounded-full blur-3xl" />
               </div>
-            </div>
-          </motion.div>
-        </div>
-      </motion.section>
+
+              <div className="relative text-center max-w-3xl mx-auto z-10">
+                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-5 sm:mb-6 text-balance">
+                  Ready to Experience Premium Healthcare?
+                </h2>
+                <p className="text-base sm:text-lg text-muted-foreground mb-8 sm:mb-10 text-pretty">
+                  Schedule your consultation today and take the first step towards
+                  better oral health.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="bg-primary hover:bg-primary/95 text-primary-foreground text-base px-8 w-full sm:w-auto"
+                  >
+                    <Link href="/book-appointment">
+                      <Calendar className="w-5 h-5 mr-2" />
+                      Book Appointment
+                    </Link>
+                  </Button>
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="outline"
+                    className="border-primary text-primary hover:bg-primary/5 dark:border-white/30 dark:text-white dark:hover:bg-white/10 text-base px-8 w-full sm:w-auto"
+                  >
+                    <Link href="tel:+12125550199">
+                      <Phone className="w-5 h-5 mr-2" />
+                      Call Now
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </motion.section>
+      </div>
 
       <Footer />
     </main>

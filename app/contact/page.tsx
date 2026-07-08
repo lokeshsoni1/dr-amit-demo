@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
   Phone,
@@ -11,7 +11,6 @@ import {
   MessageSquare,
   Send,
   AlertCircle,
-  Home,
   Calendar,
   ArrowRight,
 } from "lucide-react";
@@ -21,59 +20,52 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const contactInfo = [
+const branches = [
   {
-    icon: MapPin,
-    title: "Visit Us",
-    details: [
-      "45 Rockefeller Plaza, Suite 200",
-      "New York, NY 10111",
-    ],
-    action: {
-      label: "Get Directions",
-      href: "https://www.google.com/maps/search/?api=1&query=45%20Rockefeller%20Plaza%2C%20Suite%20200%2C%20New%20York%2C%20NY%2010111",
-    },
+    name: "Rockefeller Center Suite",
+    address: "45 Rockefeller Plaza, Suite 200, New York, NY 10111",
+    phone: "+1 (212) 555-0199",
+    hours: "Mon - Sat: 9:00 AM - 8:00 PM | Sun: Emergency Only",
+    image: "https://res.cloudinary.com/dbpdexty8/image/upload/v1783538213/Modern_dental_operatory_interior__2K_202607090041_ukinvc.jpg"
   },
   {
-    icon: Phone,
-    title: "Call Us",
-    details: ["+1 (212) 555-0199", "+1 (212) 555-0190"],
-    action: {
-      label: "Call Now",
-      href: "tel:+12125550199",
-    },
+    name: "Upper East Side Clinic",
+    address: "820 Fifth Avenue, Suite 105, New York, NY 10065",
+    phone: "+1 (212) 555-0180",
+    hours: "Mon - Fri: 8:00 AM - 7:00 PM | Sat: 9:00 AM - 4:00 PM",
+    image: "https://res.cloudinary.com/dbpdexty8/image/upload/v1783538213/Modern_dental_operatory_interior__2K_202607090041_ukinvc.jpg"
   },
   {
-    icon: Mail,
-    title: "Email Us",
-    details: ["hello@bethanydentalnyc.com", "appointments@bethanydentalnyc.com"],
-    action: {
-      label: "Send Email",
-      href: "mailto:hello@bethanydentalnyc.com",
-    },
-  },
-  {
-    icon: Clock,
-    title: "Working Hours",
-    details: ["Mon - Sat: 9:00 AM - 8:00 PM", "Sunday: Emergency Only"],
-  },
+    name: "Tribeca Operatory Suite",
+    address: "200 Chambers Street, Suite A, New York, NY 10007",
+    phone: "+1 (212) 555-0177",
+    hours: "Mon - Sat: 9:00 AM - 6:00 PM | Sun: Closed",
+    image: "https://res.cloudinary.com/dbpdexty8/image/upload/v1783538213/Modern_dental_operatory_interior__2K_202607090041_ukinvc.jpg"
+  }
 ];
 
 const inquiryTypes = [
   { id: "general", label: "General Inquiry", icon: MessageSquare },
   { id: "appointment", label: "Appointment", icon: Calendar },
-  { id: "homevisit", label: "Home Visit", icon: Home },
   { id: "emergency", label: "Emergency", icon: AlertCircle },
 ];
 
 export default function ContactPage() {
   const [selectedType, setSelectedType] = useState("general");
+  const [activeBranch, setActiveBranch] = useState(0);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     message: "",
   });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveBranch((prev) => (prev + 1) % branches.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -116,47 +108,69 @@ export default function ContactPage() {
               className="text-base sm:text-lg text-muted-foreground max-w-2xl leading-relaxed"
             >
               Have questions or need assistance? Reach out to us through any of
-              the channels below. Our team is ready to help.
+              our premium operatory suites in NYC.
             </motion.p>
           </div>
         </div>
       </section>
 
-      {/* Contact Info Cards */}
-      <section className="py-10 sm:py-12">
-        <div className="container mx-auto container-gutter">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {contactInfo.map((info, index) => (
+      {/* Interactive Branch Carousel */}
+      <section className="py-10 sm:py-12 bg-muted/20 relative overflow-hidden">
+        <div className="container mx-auto container-gutter max-w-4xl">
+          <h2 className="text-xl sm:text-3xl font-bold text-center text-foreground mb-10">
+            Our Elite NYC Branches
+          </h2>
+
+          <div className="relative h-[280px] sm:h-[220px] w-full flex items-center justify-center">
+            <AnimatePresence mode="wait">
               <motion.div
-                key={info.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-card border border-border rounded-2xl p-6 hover:border-accent/30 hover:shadow-soft transition-all duration-300"
+                key={activeBranch}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="w-full max-w-2xl bg-card border border-primary/20 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 shadow-soft transform-gpu will-change-transform relative z-10"
               >
-                <div className="w-14 h-14 rounded-xl bg-primary/5 flex items-center justify-center mb-5">
-                  <info.icon className="w-7 h-7 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold text-foreground mb-3">
-                  {info.title}
-                </h3>
-                <div className="space-y-1 mb-4">
-                  {info.details.map((detail) => (
-                    <p key={detail} className="text-sm text-muted-foreground">
-                      {detail}
+                <div className="flex-1 space-y-4">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-slate-50">
+                    {branches[activeBranch].name}
+                  </h3>
+                  <div className="space-y-2">
+                    <p className="flex items-center gap-2 text-sm font-semibold text-slate-800 dark:text-slate-200">
+                      <MapPin className="w-4 h-4 text-sky-500 shrink-0" />
+                      {branches[activeBranch].address}
                     </p>
-                  ))}
+                    <p className="flex items-center gap-2 text-sm font-semibold text-slate-800 dark:text-slate-200">
+                      <Phone className="w-4 h-4 text-sky-500 shrink-0" />
+                      {branches[activeBranch].phone}
+                    </p>
+                    <p className="flex items-center gap-2 text-xs font-medium text-slate-600 dark:text-slate-400">
+                      <Clock className="w-4 h-4 text-teal-500 shrink-0" />
+                      {branches[activeBranch].hours}
+                    </p>
+                  </div>
                 </div>
-                {info.action && (
-                  <Link
-                    href={info.action.href}
-                    className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-accent transition-colors"
-                  >
-                    {info.action.label}
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                )}
+                
+                <Link href="/book-appointment">
+                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-6 py-2.5 rounded-full cursor-pointer whitespace-nowrap">
+                    Book Here <ArrowRight className="w-4 h-4 ml-1" />
+                  </Button>
+                </Link>
               </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Indicators */}
+          <div className="flex justify-center gap-2.5 mt-8">
+            {branches.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveBranch(i)}
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  activeBranch === i ? "w-8 bg-primary" : "w-2.5 bg-slate-300 dark:bg-slate-700"
+                }`}
+                aria-label={`Slide ${i + 1}`}
+              />
             ))}
           </div>
         </div>
@@ -187,13 +201,13 @@ export default function ContactPage() {
                   <Label className="text-foreground mb-3 block">
                     Type of Inquiry
                   </Label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-3 gap-3">
                     {inquiryTypes.map((type) => (
                       <button
                         key={type.id}
                         type="button"
                         onClick={() => setSelectedType(type.id)}
-                        className={`p-3 rounded-xl border text-center transition-all duration-200 ${
+                        className={`p-3 rounded-xl border text-center transition-all duration-200 cursor-pointer ${
                           selectedType === type.id
                             ? "border-accent bg-accent/10"
                             : "border-border hover:border-accent/50"
@@ -292,7 +306,7 @@ export default function ContactPage() {
                 <Button
                   type="submit"
                   size="lg"
-                  className="w-full sm:w-auto min-h-11 glass-dark text-primary-foreground shadow-glow"
+                  className="w-full sm:w-auto min-h-11 bg-primary hover:bg-primary/95 text-primary-foreground shadow-glow"
                 >
                   <Send className="w-5 h-5 mr-2" />
                   Send Message
@@ -332,7 +346,7 @@ export default function ContactPage() {
                     </h4>
                     <p className="text-sm text-muted-foreground mb-4">
                       If you&apos;re experiencing a dental emergency, please call
-                      immediately or visit our clinic.
+                      our dedicated lines immediately.
                     </p>
                     <Button
                       asChild
@@ -343,38 +357,6 @@ export default function ContactPage() {
                       <Link href="tel:+12125550199">
                         <Phone className="w-4 h-4 mr-2" />
                         Emergency Line
-                      </Link>
-                    </Button>
-                  </div>
-                </div>
-              </div>
-
-              {/* WhatsApp Card */}
-              <div className="bg-[#25D366]/10 border border-[#25D366]/20 rounded-2xl p-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-[#25D366]/20 flex items-center justify-center shrink-0">
-                    <MessageSquare className="w-6 h-6 text-[#25D366]" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-2">
-                      Chat on WhatsApp
-                    </h4>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      Quick queries? Message us on WhatsApp for support
-                      during working hours.
-                    </p>
-                    <Button
-                      asChild
-                      size="sm"
-                      className="bg-[#25D366] hover:bg-[#25D366]/90 text-white"
-                    >
-                      <Link
-                        href="https://wa.me/12125550199"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <MessageSquare className="w-4 h-4 mr-2" />
-                        Start Chat
                       </Link>
                     </Button>
                   </div>
