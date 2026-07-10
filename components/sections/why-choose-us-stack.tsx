@@ -35,13 +35,13 @@ const values = [
 export function WhyChooseUsSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   
-  // Scroll mapping for desktop stacking sequence
+  // Calculate natural page scroll offsets dynamically using Framer Motion
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
 
-  // Mobile interval auto-fading sheet logic
+  // Mobile interval auto-fading sheet logic (soft pop-scale transitions)
   const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
 
   useEffect(() => {
@@ -53,16 +53,17 @@ export function WhyChooseUsSection() {
 
   return (
     <>
-      {/* Desktop scrolling stacking engine (>1024px) */}
-      <div ref={containerRef} className="hidden lg:block relative min-h-[300vh] w-full overflow-visible transform-gpu bg-primary text-primary-foreground">
-        {/* Background ambient elements */}
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-accent rounded-full blur-[120px]" />
-          <div className="absolute bottom-0 left-0 w-[40rem] h-[40rem] bg-cyan rounded-full blur-[120px]" />
-        </div>
+      {/* Desktop Motion Engine Framework (> 1024px VIEWPORTS) */}
+      <div ref={containerRef} className="hidden lg:block relative w-full min-h-[400vh] bg-transparent">
+        <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+          
+          {/* Background ambient elements */}
+          <div className="absolute inset-0 opacity-10 pointer-events-none">
+            <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-accent rounded-full blur-[120px]" />
+            <div className="absolute bottom-0 left-0 w-[40rem] h-[40rem] bg-cyan rounded-full blur-[120px]" />
+          </div>
 
-        <div className="sticky top-[10vh] h-[80vh] w-full flex flex-col justify-center items-center overflow-visible px-8">
-          <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center px-8 relative z-10">
             
             {/* Left Header content */}
             <div className="lg:col-span-5 flex flex-col justify-center text-left">
@@ -70,28 +71,27 @@ export function WhyChooseUsSection() {
                 badge="Why Choose Us"
                 title="Healthcare You Can Trust"
                 description="At Bethany Dental Care, we combine dental excellence with genuine compassion to deliver oral care that truly makes a difference."
-                light
+                light={false}
               />
             </div>
 
             {/* Right stack layers */}
             <div className="lg:col-span-7 relative h-[500px] w-full flex items-center justify-center">
               {values.map((value, index) => {
-                // Determine card scrolling threshold progress
+                // Determine card scrolling threshold progress mathematically for staggered layering
                 const startProgress = index * 0.22;
-                const endProgress = startProgress + 0.25;
+                const endProgress = startProgress + 0.22;
 
-                // Bind layout scaling inputs to natural scroll variables
                 const y = useTransform(
                   scrollYProgress,
                   [0, startProgress, Math.min(startProgress + 0.1, 1), Math.min(endProgress, 1), Math.min(endProgress + 0.1, 1)],
-                  ["60vh", "60vh", "0px", "0px", "-20px"]
+                  ["80vh", "80vh", "0px", "0px", "-20px"]
                 );
 
                 const scale = useTransform(
                   scrollYProgress,
                   [0, startProgress, Math.min(startProgress + 0.1, 1), Math.min(endProgress, 1), Math.min(endProgress + 0.1, 1)],
-                  [0.9, 0.9, 1, 1, 0.95]
+                  [0.9, 0.9, 1, 1, 0.94]
                 );
 
                 const opacity = useTransform(
@@ -112,20 +112,21 @@ export function WhyChooseUsSection() {
                       WebkitBackdropFilter: "blur(24px)",
                       border: "1px solid rgba(200, 230, 255, 0.16)",
                       borderRadius: "24px",
-                      padding: "2.5rem",
+                      padding: "3rem",
                       boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
                       zIndex: index + 1,
                       willChange: "transform, opacity, backdrop-filter"
                     }}
                     className="absolute w-[480px] max-w-full flex flex-col items-start text-left transform-gpu"
                   >
-                    <div className="w-16 h-16 rounded-2xl bg-accent/20 flex items-center justify-center mb-6">
-                      <value.icon className="w-8 h-8 text-accent" />
+                    <div className="w-16 h-16 rounded-2xl bg-cyan-500/20 flex items-center justify-center mb-6">
+                      <value.icon className="w-8 h-8 text-[#09090b]" />
                     </div>
-                    <h3 className="text-2xl font-bold mb-4 text-white">
+                    {/* Typography color re-themed to high-contrast deep bold colors */}
+                    <h3 className="text-2xl font-black mb-4 text-[#09090b]">
                       {value.title}
                     </h3>
-                    <p className="text-primary-foreground/80 text-base leading-relaxed">
+                    <p className="text-[#09090b]/80 text-base leading-relaxed font-semibold">
                       {value.description}
                     </p>
                   </motion.div>
@@ -137,8 +138,8 @@ export function WhyChooseUsSection() {
         </div>
       </div>
 
-      {/* Mobile Stacking Fader view (<=1024px) */}
-      <div className="lg:hidden w-full py-16 bg-primary text-primary-foreground relative overflow-hidden flex flex-col items-center">
+      {/* Mobile Motion Engine Framework (<= 1024px VIEWPORTS - IOS & ANDROID) */}
+      <div className="lg:hidden w-full py-16 bg-zinc-50 relative overflow-hidden flex flex-col items-center">
         {/* Background ambient elements */}
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute top-0 right-0 w-80 h-80 bg-accent rounded-full blur-3xl" />
@@ -150,10 +151,11 @@ export function WhyChooseUsSection() {
             badge="Why Choose Us"
             title="Healthcare You Can Trust"
             description="At Bethany Dental Care, we combine dental excellence with genuine compassion to deliver oral care that truly makes a difference."
-            light
+            light={false}
           />
 
-          <div className="relative w-full max-w-[94vw] h-[280px] mt-10 flex items-center justify-center">
+          {/* Auto-Fading Layout Sheets with soft pop-scale adjustments */}
+          <div className="relative w-[94vw] min-h-[40vh] mt-10 flex items-center justify-center">
             {values.map((value, index) => {
               const isActive = index === mobileActiveIndex;
 
@@ -173,19 +175,20 @@ export function WhyChooseUsSection() {
                     WebkitBackdropFilter: "blur(24px)",
                     border: "1px solid rgba(200, 230, 255, 0.16)",
                     borderRadius: "24px",
-                    padding: "2.5rem",
+                    padding: "3rem",
                     boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
-                    willChange: "transform, opacity"
+                    willChange: "transform, opacity, backdrop-filter"
                   }}
                   className="absolute inset-0 flex flex-col items-center text-center justify-center transform-gpu"
                 >
-                  <div className="w-16 h-16 rounded-2xl bg-accent/20 flex items-center justify-center mb-4">
-                    <value.icon className="w-8 h-8 text-accent" />
+                  <div className="w-16 h-16 rounded-2xl bg-cyan-500/20 flex items-center justify-center mb-4">
+                    <value.icon className="w-8 h-8 text-[#09090b]" />
                   </div>
-                  <h3 className="text-xl font-bold mb-2 text-white">
+                  {/* High contrast deep bold colors */}
+                  <h3 className="text-xl font-black mb-2 text-[#09090b]">
                     {value.title}
                   </h3>
-                  <p className="text-primary-foreground/80 text-sm leading-relaxed max-w-sm">
+                  <p className="text-[#09090b]/80 text-sm leading-relaxed max-w-sm font-semibold">
                     {value.description}
                   </p>
                 </motion.div>
@@ -197,3 +200,4 @@ export function WhyChooseUsSection() {
     </>
   );
 }
+
