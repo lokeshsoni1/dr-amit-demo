@@ -429,7 +429,7 @@ export default function AboutPage() {
                 const y = useTransform(
                   careerScrollProgress,
                   [0, cardStart, p1, p2, p3],
-                  ["60vh", "60vh", "0px", "0px", "-20px"]
+                  ["80vh", "80vh", "0px", "0px", "-20px"]
                 );
 
                 const t1 = Math.max(0, cardStart - 0.05);
@@ -441,12 +441,12 @@ export default function AboutPage() {
                 const scale = useTransform(
                   careerScrollProgress,
                   [0, t1, t2, t3, t4, t5],
-                  [0.95, 0.95, 1.05, 1.05, 0.94, 0.94]
+                  [0.95, 0.95, 1.0, 1.0, 0.94, 0.94]
                 );
                 const opacity = useTransform(
                   careerScrollProgress,
                   [0, t1, t2, t3, t4, t5],
-                  [0, 0, 1, 1, 0.1, 0.1]
+                  [0, 0, 1, 1, 0.15, 0.15]
                 );
                 const filter = useTransform(
                   careerScrollProgress,
@@ -462,31 +462,31 @@ export default function AboutPage() {
                       scale,
                       opacity,
                       filter,
-                      background: "rgba(9, 29, 54, 0.85)",
-                      backdropFilter: "blur(24px)",
-                      WebkitBackdropFilter: "blur(24px)",
+                      background: "rgba(9, 29, 54, 0.94)",
+                      backdropFilter: "blur(30px)",
+                      WebkitBackdropFilter: "blur(30px)",
                       border: "2px solid rgba(255, 255, 255, 0.15)",
                       borderRadius: "24px",
-                      padding: "2.5rem",
+                      boxShadow: "0 40px 80px -20px rgba(0,0,0,0.5)",
                       zIndex: idx + 1,
                       willChange: "transform, opacity, filter, backdrop-filter"
                     }}
-                    className={`absolute w-full max-w-4xl flex flex-row items-center justify-between gap-12 transform-gpu shadow-2xl backdrop-blur-xl ${
-                      isOdd ? "flex-row-reverse" : ""
+                    className={`absolute w-full max-w-4xl flex items-center justify-between gap-12 transform-gpu shadow-2xl backdrop-blur-xl p-10 ${
+                      isOdd ? "flex-row-reverse" : "flex-row"
                     }`}
                   >
-                    <div className="w-1/2 h-[300px] rounded-2xl overflow-hidden bg-zinc-900 border border-white/10 shrink-0">
-                      <img src={job.image} alt={job.title} className="w-full h-full object-cover object-center" />
+                    <div className="w-1/2 aspect-[4/3] rounded-xl overflow-hidden bg-zinc-900 border border-white/10 shrink-0">
+                      <img src={job.image} alt={job.title} className="w-full h-full object-cover object-center rounded-xl" />
                     </div>
                     <div className="flex flex-col space-y-6 justify-between flex-grow text-white">
                       <div>
-                        <h3 className="text-3xl font-black text-white mb-2">{job.title}</h3>
-                        <p className="text-xs text-cyan-300 font-bold mb-4 tracking-wider uppercase">{job.type}</p>
-                        <p className="text-sm text-slate-100 leading-relaxed max-w-md font-semibold">{job.description}</p>
+                        <h3 className="text-3xl font-extrabold text-white mb-2">{job.title}</h3>
+                        <p className="text-xs text-cyan-300 font-extrabold mb-4 tracking-wider uppercase">{job.type}</p>
+                        <p className="text-sm text-white leading-relaxed max-w-md font-extrabold">{job.description}</p>
                       </div>
                       <div className="pt-6 border-t border-white/10 flex items-center justify-between">
-                        <span className="text-lg font-black text-white">{job.salary}</span>
-                        <Link href="/contact" className="text-sm font-black text-cyan-400 flex items-center gap-1 hover:underline">
+                        <span className="text-lg font-extrabold text-white">{job.salary}</span>
+                        <Link href="/contact" className="text-sm font-extrabold text-white flex items-center gap-1 hover:underline">
                           Apply Now <ArrowRight className="w-4 h-4" />
                         </Link>
                       </div>
@@ -504,14 +504,14 @@ export default function AboutPage() {
                   return (
                     <motion.div
                       key={idx}
-                      initial={{ opacity: 0, scale: 0.93 }}
+                      initial={{ opacity: 0, scale: 0.94 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.93 }}
+                      exit={{ opacity: 0, scale: 0.94 }}
                       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                       style={{
-                        background: "rgba(9, 29, 54, 0.85)",
-                        backdropFilter: "blur(24px)",
-                        WebkitBackdropFilter: "blur(24px)",
+                        background: "rgba(9, 29, 54, 0.94)",
+                        backdropFilter: "blur(30px)",
+                        WebkitBackdropFilter: "blur(30px)",
                         border: "2px solid rgba(255, 255, 255, 0.15)",
                         willChange: "transform, opacity, backdrop-filter",
                       }}
@@ -524,11 +524,11 @@ export default function AboutPage() {
                         <div>
                           <h3 className="text-xl font-bold mb-1 text-white">{job.title}</h3>
                           <p className="text-xs text-cyan-300 font-semibold mb-3">{job.type}</p>
-                          <p className="text-xs text-slate-200 leading-relaxed line-clamp-3">{job.description}</p>
+                          <p className="text-xs text-white leading-relaxed line-clamp-3 font-extrabold">{job.description}</p>
                         </div>
                         <div className="pt-4 border-t border-white/10 flex items-center justify-between mt-4">
                           <span className="text-sm font-bold text-white">{job.salary}</span>
-                          <Link href="/contact" className="text-xs font-bold text-cyan-400 flex items-center gap-1 hover:underline">
+                          <Link href="/contact" className="text-xs font-bold text-white flex items-center gap-1 hover:underline">
                             Apply <ArrowRight className="w-3.5 h-3.5" />
                           </Link>
                         </div>
