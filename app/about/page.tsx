@@ -1,21 +1,12 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useRef, useEffect, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { 
   Award, 
-  Clock, 
-  MapPin, 
-  Phone, 
   Briefcase, 
-  Star, 
-  Users, 
-  CheckCircle, 
-  Stethoscope, 
-  ShieldCheck, 
   ArrowRight,
-  TrendingUp
 } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -53,30 +44,30 @@ const team = [
   },
   {
     name: "Dr. Michael Chang, DDS",
-    title: "Lead Orthodontics Specialist",
+    title: "Lead Orthodontics Specialist - Harvard",
     degree: "Harvard School of Dental Medicine",
-    image: "https://res.cloudinary.com/dbpdexty8/image/upload/v1783624588/Doctor_examining_patient_dental___202607100040_y3pdpt.jpg",
+    image: "https://res.cloudinary.com/dbpdexty8/image/upload/v1783658573/Male_orthodontist_smiling_confid__2K_202607101005_bfveuh.jpg",
     featured: false
   },
   {
     name: "Dr. Elena Rostova, DMD",
-    title: "Precision Endodontics Operator",
+    title: "Precision Endodontics Operator - Penn",
     degree: "Penn Dental Medicine",
-    image: "https://res.cloudinary.com/dbpdexty8/image/upload/v1783624586/View__A_portrait_photograph__3_4_202607100035_acwyqp.jpg",
+    image: "https://res.cloudinary.com/dbpdexty8/image/upload/v1783658581/Woman_giving_thumbs-up_2K_202607101007_un9k6k.jpg",
     featured: false
   },
   {
     name: "Dr. Yasmin Al-Fayed, DDS",
-    title: "Periodontal & Biomaterial Specialist",
+    title: "Periodontal & Biomaterial Specialist - NYU",
     degree: "NYU College of Dentistry",
-    image: "https://res.cloudinary.com/dbpdexty8/image/upload/v1783624587/Patient_completing_paperwork_at___202607100036_f3on1u.jpg",
+    image: "https://res.cloudinary.com/dbpdexty8/image/upload/v1783658575/Female_dental_specialist_smiling_2K_202607101010_ickmnv.jpg",
     featured: false
   },
   {
     name: "Dr. Marcus Brody, DDS",
-    title: "Oral & Maxillofacial Surgeon",
+    title: "Oral & Maxillofacial Surgeon - Columbia",
     degree: "Columbia University Dental Medicine",
-    image: "https://res.cloudinary.com/dbpdexty8/image/upload/v1783624587/Dental_assistant_loading_autoclave_2K_202607100035_pxbzlr.jpg",
+    image: "https://res.cloudinary.com/dbpdexty8/image/upload/v1783658573/Oral_surgeon_giving_thumbs-up_2K_202607101012_omslfe.jpg",
     featured: false
   }
 ];
@@ -86,47 +77,48 @@ const jobs = [
     title: "Lead Orthodontics Operator",
     type: "Full-Time | Rockefeller Center",
     salary: "$180,000 - $240,000 / Year",
-    description: "Orchestrate high-velocity Invisalign and advanced orthodontic treatments inside our luxury operatory suites."
+    description: "Orchestrate high-velocity Invisalign and advanced orthodontic treatments inside our luxury operatory suites.",
+    image: "https://res.cloudinary.com/dbpdexty8/image/upload/v1783659829/Hands_holding_orthodontic_aligne__2K_202607101022_elxzj4.jpg"
   },
   {
     title: "Clinical Dental Assistant",
     type: "Full-Time | Tribeca",
     salary: "$35 - $45 / Hour",
-    description: "Provide precision assistance during endodontic and neuromuscular oral sedation procedures in sterile zones."
+    description: "Provide precision assistance during endodontic and neuromuscular oral sedation procedures in sterile zones.",
+    image: "https://res.cloudinary.com/dbpdexty8/image/upload/v1783659820/Dental_instruments_on_tray_2K_202607101031_dgug4j.jpg"
   },
   {
     title: "Head Medical Receptionist",
     type: "Full-Time | Rockefeller Center",
     salary: "$65,000 - $80,000 / Year",
-    description: "Manage elite patient relations, scheduling pipelines, and coordinate intake for corporate accounts."
+    description: "Manage elite patient relations, scheduling pipelines, and coordinate intake for corporate accounts.",
+    image: "https://res.cloudinary.com/dbpdexty8/image/upload/v1783659820/Dental_clinic_reception_desk_wai__202607101033_n5gihz.jpg"
   }
 ];
 
-const awards = [
+const credentials = [
   {
-    title: "NDA Excellence Award",
-    organization: "National Dental Association",
-    year: "2024",
+    title: "NDA Excellence Badge",
+    image: "https://res.cloudinary.com/dbpdexty8/image/upload/v1783660436/Dental_award_and_certificate_on_202607101036_e566yf.jpg",
     desc: "Recognized for clinical precision and implementation of sterile operatory safeguards."
   },
   {
-    title: "Top Cosmetic Design Registry",
-    organization: "Aesthetic Dentistry Council",
-    year: "2025",
+    title: "Cosmetic Design Registry Asset",
+    image: "https://res.cloudinary.com/dbpdexty8/image/upload/v1783660430/Cosmetic_design_certificate_and___202607101038_fz5n09.jpg",
     desc: "Certified for elite achievements in digital smile design and porcelain veneers."
   },
   {
-    title: "Invisalign Elite Provider",
-    organization: "Align Technology Inc.",
-    year: "2026",
+    title: "Invisalign Elite Credential",
+    image: "https://res.cloudinary.com/dbpdexty8/image/upload/v1783660451/Orthodontic_award_and_certificate_2K_202607101043_bha5n2.jpg",
     desc: "Awarded to the top 1% of dental practices demonstrating high-volume orthodontic excellence."
   }
 ];
 
 export default function AboutPage() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const careerRef = useRef<HTMLDivElement>(null);
   
-  // Hook up scroll telemetry for the chronological milestones dots timeline
+  // Bidirectional Milestones Script: Re-engineer tracker logic dynamically on every continuous scroll change
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end end"]
@@ -134,22 +126,39 @@ export default function AboutPage() {
 
   const pathHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
+  // Mobile Fading Interval spring transition loop for career section (Module 7)
+  const [activeCareerIdx, setActiveCareerIdx] = useState(0);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveCareerIdx((prev) => (prev + 1) % jobs.length);
+    }, 2500);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Career scroll scaling stack hook
+  const { scrollYProgress: careerScrollProgress } = useScroll({
+    target: careerRef,
+    offset: ["start start", "end end"]
+  });
+
   return (
     <main className="min-h-screen bg-background relative overflow-hidden">
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative pt-24 pb-10 sm:pt-28 sm:pb-12 lg:pt-36 lg:pb-16 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
-        <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-gradient-to-br from-accent/10 to-transparent rounded-full blur-3xl -translate-y-1/2" />
-
-        <div className="container mx-auto container-gutter relative">
+      {/* Hero Section & Background Swap (Module 10) */}
+      <section 
+        className="relative pt-32 pb-20 sm:pt-36 sm:pb-24 lg:pt-44 lg:pb-32 overflow-hidden bg-cover bg-center"
+        style={{
+          backgroundImage: "url('https://res.cloudinary.com/dbpdexty8/image/upload/v1783660908/Dental_operatory_with_plant_walls_202607101051_iyoets.jpg')"
+        }}
+      >
+        <div className="container mx-auto container-gutter relative z-10 flex flex-col items-center justify-center text-center">
           <div className="max-w-4xl">
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-block px-4 py-1.5 rounded-full bg-primary/5 text-xs font-semibold tracking-wide uppercase text-primary mb-6"
+              className="inline-block px-4 py-1.5 rounded-full bg-white/20 text-xs font-semibold tracking-wide uppercase text-white mb-6 backdrop-blur-md"
             >
               About Bethany Dental Care
             </motion.span>
@@ -157,17 +166,17 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-5 sm:mb-6"
+              className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 drop-shadow-lg"
             >
               Redefining Clinical
               <br />
-              <span className="text-gradient">Dental Excellence</span>
+              <span className="text-cyan-200">Dental Excellence</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-base sm:text-xl text-muted-foreground max-w-2xl leading-relaxed"
+              className="text-lg sm:text-2xl text-slate-100 max-w-3xl leading-relaxed drop-shadow-md mx-auto font-medium"
             >
               For over two decades, Bethany Dental Care has delivered elite oral healthcare and anxiety-free dentistry to the regional community.
             </motion.p>
@@ -175,11 +184,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION A: Clinic Origins Narrative */}
-      <section className="py-14 sm:py-16 lg:py-20 relative z-10">
-        <div className="container mx-auto container-gutter max-w-4xl">
-          <div className="space-y-6 text-base sm:text-lg text-muted-foreground leading-relaxed">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">Our Origins & Vision</h2>
+      {/* SECTION A: Clinic Origins Narrative (Module 10 Clean Viewport Style) */}
+      <section className="py-16 sm:py-20 lg:py-24 relative z-10 bg-zinc-950 text-white border-b border-white/10">
+        <div className="container mx-auto container-gutter max-w-4xl text-center">
+          <div className="space-y-6 text-base sm:text-lg text-slate-300 leading-relaxed">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">Our Origins & Vision</h2>
             <p>
               Bethany Dental Care was engineered over twenty years ago with a singular objective: to combine state-of-the-art digital dental mapping with a zero-anxiety clinical methodology. Located in the heart of Manhattan at 45 Rockefeller Plaza, our practice has grown from a single treatment room into a premier multi-disciplinary clinic serving thousands of professionals.
             </p>
@@ -190,15 +199,15 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION B: The Chronological Dots Timeline Chart */}
-      <section ref={containerRef} className="py-14 sm:py-20 bg-muted/20 relative overflow-hidden">
+      {/* SECTION B: The Chronological Dots Timeline Chart (Module 9 Bidirectional) */}
+      <section ref={containerRef} className="py-20 sm:py-28 bg-zinc-900 border-b border-white/10 relative overflow-hidden">
         <div className="container mx-auto container-gutter max-w-4xl">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground mb-12">Our Chronological Milestones</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-center text-white mb-16">Our Chronological Milestones</h2>
           
-          <div className="relative border-l border-primary/20 dark:border-white/10 ml-4 sm:ml-8 pl-8 space-y-12">
-            {/* Scroll reactive progress line overlay */}
+          <div className="relative border-l border-white/10 ml-4 sm:ml-8 pl-8 space-y-12">
+            {/* Scroll reactive progress line overlay tracking scroll inputs interactively via frame tracking */}
             <motion.div 
-              className="absolute left-0 top-0 w-0.5 bg-accent origin-top transform-gpu"
+              className="absolute left-0 top-0 w-0.5 bg-cyan-400 origin-top transform-gpu will-change-[height]"
               style={{ height: pathHeight }}
             />
             
@@ -212,14 +221,14 @@ export default function AboutPage() {
                 className="relative"
               >
                 {/* Timeline Dot Indicator */}
-                <div className="absolute -left-[41px] top-1.5 w-6 h-6 rounded-full bg-background border-2 border-accent flex items-center justify-center z-10 shadow-glow">
-                  <div className="w-2.5 h-2.5 rounded-full bg-accent" />
+                <div className="absolute -left-[41px] top-1.5 w-6 h-6 rounded-full bg-zinc-900 border-2 border-cyan-400 flex items-center justify-center z-10 shadow-[0_0_15px_rgba(34,211,238,0.3)]">
+                  <div className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
                 </div>
                 
-                <div className="bg-card border border-border rounded-2xl p-6 shadow-soft hover:border-accent/30 transition-all duration-300 transform-gpu hover:-translate-y-0.5">
-                  <span className="inline-block text-sm font-bold text-accent mb-1">{milestone.year}</span>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">{milestone.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{milestone.description}</p>
+                <div className="bg-zinc-950/60 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-2xl hover:border-cyan-400/40 transition-all duration-300 transform-gpu hover:-translate-y-0.5">
+                  <span className="inline-block text-sm font-bold text-cyan-400 mb-1">{milestone.year}</span>
+                  <h3 className="text-lg font-semibold text-white mb-2">{milestone.title}</h3>
+                  <p className="text-sm text-zinc-300 leading-relaxed">{milestone.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -227,32 +236,24 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION C: The Clinical Team Grid Mesh Architecture */}
+      {/* SECTION C: The Clinical Team Grid Mesh Architecture (Module 6) */}
       <section 
-        className="relative overflow-hidden py-14 sm:py-20 z-10"
-        style={{
-          backgroundImage: "url('https://res.cloudinary.com/dbpdexty8/image/upload/v1783540390/Bethany_Dental_Care_wall_2K_202607090122_gzbl9h.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
+        className="relative overflow-hidden py-20 sm:py-28 z-10 bg-zinc-950"
       >
-        {/* Hardware-accelerated 3% backdrop blur opacity filter */}
-        <div className="absolute inset-0 bg-black/10 backdrop-blur-[3px] pointer-events-none z-0 transform-gpu" />
-        
         <div className="container mx-auto container-gutter relative z-10">
-          <h2 className="text-2xl sm:text-4xl font-bold text-center text-white mb-4">Our Clinical Specialist Team</h2>
-          <p className="text-center text-slate-300 max-w-xl mx-auto mb-16 text-sm sm:text-base">
+          <h2 className="text-3xl sm:text-5xl font-bold text-center text-white mb-4">Our Clinical Specialist Team</h2>
+          <p className="text-center text-zinc-400 max-w-xl mx-auto mb-20 text-base sm:text-lg">
             A collaborative panel of elite clinicians, each holding credentials from leading institutions.
           </p>
 
-          <div className="max-w-4xl mx-auto space-y-8">
-            {/* Top row: Centralized Lead Doctor */}
-            <div className="flex justify-center">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+            {team.map((doctor, idx) => (
               <motion.div
+                key={idx}
                 initial={{ opacity: 0, y: 35 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
+                transition={{ duration: 0.6, delay: idx * 0.08 }}
                 style={{
                   background: "rgba(255, 255, 255, 0.05)",
                   backdropFilter: "blur(12px)",
@@ -260,136 +261,25 @@ export default function AboutPage() {
                   border: "1px solid rgba(255, 255, 255, 0.1)",
                   borderRadius: "20px",
                 }}
-                className="w-full max-w-sm overflow-hidden shadow-2xl transition-all duration-300 hover:border-sky-400/50 hover:-translate-y-1 transform-gpu group"
+                className="overflow-hidden shadow-2xl transition-all duration-300 hover:border-cyan-400/50 hover:-translate-y-1 transform-gpu group"
               >
-                <div className="aspect-[4/3] relative bg-muted overflow-hidden">
+                {/* Apply strict aspect frame calculations w-full h-[420px] object-cover object-top rounded-2xl */}
+                <div className="w-full h-[420px] overflow-hidden bg-zinc-900 rounded-t-2xl relative">
                   <img 
-                    src={team[0].image} 
-                    alt={team[0].name} 
-                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" 
-                    onError={(e) => {
-                      e.currentTarget.src = `https://placehold.co/400x300/09192c/ffffff?text=${encodeURIComponent(team[0].name)}`;
-                      e.currentTarget.onerror = null;
-                    }}
+                    src={doctor.image} 
+                    alt={doctor.name} 
+                    className="w-full h-[420px] object-cover object-top group-hover:scale-105 transition-transform duration-500 rounded-t-2xl" 
                   />
                 </div>
-                <div className="p-6 text-center">
-                  <h3 className="text-xl font-bold text-white mb-1">{team[0].name}</h3>
-                  <p className="text-xs font-bold text-accent tracking-widest uppercase mb-3">{team[0].title}</p>
-                  <p className="text-xs text-slate-300">{team[0].degree}</p>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Row 2: Two doctors side-by-side */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-center">
-              {team.slice(1, 3).map((doctor, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 35 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: idx * 0.1 }}
-                  style={{
-                    background: "rgba(255, 255, 255, 0.05)",
-                    backdropFilter: "blur(12px)",
-                    WebkitBackdropFilter: "blur(12px)",
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
-                    borderRadius: "20px",
-                  }}
-                  className="overflow-hidden shadow-xl transition-all duration-300 hover:border-sky-400/50 hover:-translate-y-1 transform-gpu group"
-                >
-                  <div className="aspect-[4/3] relative bg-muted overflow-hidden">
-                    <img 
-                      src={doctor.image} 
-                      alt={doctor.name} 
-                      className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" 
-                      onError={(e) => {
-                        e.currentTarget.src = `https://placehold.co/400x300/09192c/ffffff?text=${encodeURIComponent(doctor.name)}`;
-                        e.currentTarget.onerror = null;
-                      }}
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-lg font-bold text-white mb-1">{doctor.name}</h3>
-                    <p className="text-xs font-bold text-accent tracking-widest uppercase mb-2">{doctor.title}</p>
-                    <p className="text-xs text-slate-300">{doctor.degree}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Row 3: Two doctors side-by-side */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-center">
-              {team.slice(3, 5).map((doctor, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 35 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: idx * 0.1 }}
-                  style={{
-                    background: "rgba(255, 255, 255, 0.05)",
-                    backdropFilter: "blur(12px)",
-                    WebkitBackdropFilter: "blur(12px)",
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
-                    borderRadius: "20px",
-                  }}
-                  className="overflow-hidden shadow-xl transition-all duration-300 hover:border-sky-400/50 hover:-translate-y-1 transform-gpu group"
-                >
-                  <div className="aspect-[4/3] relative bg-muted overflow-hidden">
-                    <img 
-                      src={doctor.image} 
-                      alt={doctor.name} 
-                      className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" 
-                      onError={(e) => {
-                        e.currentTarget.src = `https://placehold.co/400x300/09192c/ffffff?text=${encodeURIComponent(doctor.name)}`;
-                        e.currentTarget.onerror = null;
-                      }}
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-lg font-bold text-white mb-1">{doctor.name}</h3>
-                    <p className="text-xs font-bold text-accent tracking-widest uppercase mb-2">{doctor.title}</p>
-                    <p className="text-xs text-slate-300">{doctor.degree}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION D: Human Resources & Careers Gateway */}
-      <section className="py-14 sm:py-20 bg-muted/10 relative z-10">
-        <div className="container mx-auto container-gutter">
-          <h2 className="text-2xl sm:text-4xl font-bold text-center text-foreground mb-4">Join Our Practice</h2>
-          <p className="text-center text-muted-foreground max-w-xl mx-auto mb-12 text-sm">
-            We are looking for dedicated clinical specialists and support operators.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {jobs.map((job, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-zinc-950 border border-white/10 rounded-3xl p-6 flex flex-col justify-between space-y-6 shadow-soft hover:border-accent/40 transition-colors transform-gpu"
-              >
-                <div>
-                  <Briefcase className="w-8 h-8 text-accent mb-4" />
-                  <h3 className="text-lg font-bold text-white mb-2">{job.title}</h3>
-                  <p className="text-xs text-slate-400 font-semibold mb-3">{job.type}</p>
-                  <p className="text-xs text-slate-500 leading-relaxed">{job.description}</p>
-                </div>
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between">
-                  <span className="text-xs font-bold text-white">{job.salary}</span>
-                  <Link href="/contact" className="text-xs font-bold text-accent flex items-center gap-1 hover:underline">
-                    Apply <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-1">{doctor.name}</h3>
+                  <p 
+                    style={{ color: "#115e59" }} 
+                    className="text-xs font-bold text-teal-800 tracking-widest uppercase mb-3"
+                  >
+                    {doctor.title}
+                  </p>
+                  <p className="text-xs text-zinc-300">{doctor.degree}</p>
                 </div>
               </motion.div>
             ))}
@@ -397,28 +287,160 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION E: "What We've Achieved" Recognition Block */}
-      <section className="py-14 sm:py-20 bg-transparent relative z-10">
-        <div className="container mx-auto container-gutter">
-          <h2 className="text-2xl sm:text-4xl font-bold text-center text-foreground mb-12">Clinical Recognitions & Credentials</h2>
+      {/* SECTION D: Alternating Careers Matrix with Dual-Motion Layouts (Module 7) */}
+      <section ref={careerRef} className="py-20 sm:py-32 bg-[#09192c] relative z-10 overflow-visible">
+        {/* Background glow ambient */}
+        <div className="absolute inset-0 opacity-10 pointer-events-none">
+          <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-cyan-500 rounded-full blur-[120px]" />
+          <div className="absolute bottom-0 left-0 w-[40rem] h-[40rem] bg-indigo-500 rounded-full blur-[120px]" />
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {awards.map((award, idx) => (
-              <motion.div
+        <div className="container mx-auto container-gutter max-w-6xl relative z-10">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <h2 className="text-3xl sm:text-5xl font-bold text-white mb-4">Join Our Practice</h2>
+            <p className="text-slate-300 text-sm sm:text-base">
+              We are looking for dedicated clinical specialists and support operators.
+            </p>
+          </div>
+
+          {/* Desktop Stack-and-Reveal Scrolling Engine (Viewport > 1024px) */}
+          <div className="hidden lg:flex flex-col space-y-24">
+            {jobs.map((job, idx) => {
+              const isOdd = idx % 2 !== 0;
+
+              // Bind scaling inputs to scroll progress
+              const cardStart = idx * 0.28;
+              const cardEnd = cardStart + 0.3;
+
+              const y = useTransform(
+                careerScrollProgress,
+                [0, cardStart, Math.min(cardStart + 0.08, 1), Math.min(cardEnd, 1), Math.min(cardEnd + 0.08, 1)],
+                ["300px", "300px", "0px", "0px", "-20px"]
+              );
+              const scale = useTransform(
+                careerScrollProgress,
+                [0, cardStart, Math.min(cardStart + 0.08, 1), Math.min(cardEnd, 1), Math.min(cardEnd + 0.08, 1)],
+                [0.94, 0.94, 1, 1, 0.94]
+              );
+              const opacity = useTransform(
+                careerScrollProgress,
+                [0, cardStart, Math.min(cardStart + 0.08, 1), Math.min(cardEnd, 1), Math.min(cardEnd + 0.08, 1)],
+                [0.4, 0.4, 1, 1, 0.6]
+              );
+
+              return (
+                <motion.div
+                  key={idx}
+                  style={{
+                    y,
+                    scale,
+                    opacity,
+                    background: "rgba(245, 250, 255, 0.08)",
+                    backdropFilter: "blur(24px)",
+                    WebkitBackdropFilter: "blur(24px)",
+                    border: "1px solid rgba(245, 250, 255, 0.12)",
+                    willChange: "transform, opacity, backdrop-filter",
+                    zIndex: idx + 1,
+                  }}
+                  className={`rounded-3xl p-8 flex flex-row items-center justify-between w-full gap-12 transform-gpu shadow-2xl ${
+                    isOdd ? "flex-row-reverse" : ""
+                  }`}
+                >
+                  <div className="w-1/2 h-[350px] rounded-2xl overflow-hidden bg-zinc-900 border border-white/10 shrink-0">
+                    <img src={job.image} alt={job.title} className="w-full h-full object-cover object-center" />
+                  </div>
+                  <div className="flex flex-col space-y-6 justify-between flex-grow text-white">
+                    <div>
+                      <h3 className="text-3xl font-bold text-white mb-2">{job.title}</h3>
+                      <p className="text-xs text-cyan-300 font-semibold mb-4 tracking-wider uppercase">{job.type}</p>
+                      <p className="text-sm text-slate-200 leading-relaxed max-w-md">{job.description}</p>
+                    </div>
+                    <div className="pt-6 border-t border-white/10 flex items-center justify-between">
+                      <span className="text-lg font-bold text-white">{job.salary}</span>
+                      <Link href="/contact" className="text-sm font-bold text-cyan-400 flex items-center gap-1 hover:underline">
+                        Apply Now <ArrowRight className="w-4 h-4" />
+                      </Link>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Mobile Auto-Fade Spring Interval Transition Loop (Viewport <= 1024px) */}
+          <div className="lg:hidden relative w-full h-[520px] flex items-center justify-center overflow-hidden">
+            <AnimatePresence mode="wait">
+              {jobs.map((job, idx) => {
+                if (idx !== activeCareerIdx) return null;
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.96 }}
+                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    style={{
+                      background: "rgba(245, 250, 255, 0.08)",
+                      backdropFilter: "blur(24px)",
+                      WebkitBackdropFilter: "blur(24px)",
+                      border: "1px solid rgba(245, 250, 255, 0.12)",
+                      willChange: "transform, opacity, backdrop-filter",
+                    }}
+                    className="absolute inset-0 flex flex-col p-6 rounded-3xl justify-between h-full transform-gpu"
+                  >
+                    <div className="w-full h-[200px] rounded-xl overflow-hidden bg-zinc-900 border border-white/5 mb-4 shrink-0">
+                      <img src={job.image} alt={job.title} className="w-full h-full object-cover object-center" />
+                    </div>
+                    <div className="text-white flex-grow flex flex-col justify-between">
+                      <div>
+                        <h3 className="text-xl font-bold mb-1">{job.title}</h3>
+                        <p className="text-xs text-cyan-300 font-semibold mb-3">{job.type}</p>
+                        <p className="text-xs text-slate-200 leading-relaxed line-clamp-3">{job.description}</p>
+                      </div>
+                      <div className="pt-4 border-t border-white/10 flex items-center justify-between mt-4">
+                        <span className="text-sm font-bold">{job.salary}</span>
+                        <Link href="/contact" className="text-xs font-bold text-cyan-400 flex items-center gap-1 hover:underline">
+                          Apply <ArrowRight className="w-3.5 h-3.5" />
+                        </Link>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION E: Infinite Marquee for Clinical Recognitions & Credentials (Module 8) */}
+      <section className="py-20 bg-zinc-950 border-t border-white/10 overflow-hidden relative z-10">
+        <div className="container mx-auto container-gutter mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold text-center text-white">Clinical Recognitions & Credentials</h2>
+        </div>
+
+        {/* Seamless horizontal infinite loop marquee sliding from left to right */}
+        <div className="relative w-full flex overflow-x-hidden">
+          <div className="animate-marquee flex whitespace-nowrap gap-8 py-4 select-none transform-gpu">
+            {/* Render 3 duplicate sets of cards to create seamless infinite illusion */}
+            {[...credentials, ...credentials, ...credentials].map((cred, idx) => (
+              <div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-card border border-border rounded-3xl p-6 flex flex-col items-center text-center space-y-4 hover:border-accent/30 transition-colors shadow-soft"
+                style={{
+                  background: "rgba(255, 255, 255, 0.05)",
+                  backdropFilter: "blur(12px)",
+                  WebkitBackdropFilter: "blur(12px)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                }}
+                className="inline-flex items-center gap-6 p-6 rounded-2xl min-w-[320px] sm:min-w-[420px] backdrop-blur-xl border border-white/10 select-none pointer-events-none"
               >
-                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center shadow-soft">
-                  <Award className="w-7 h-7 text-accent" />
+                <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0 border border-white/10 bg-zinc-900">
+                  <img src={cred.image} alt={cred.title} className="w-full h-full object-cover object-center" />
                 </div>
-                <h3 className="text-lg font-bold text-foreground">{award.title}</h3>
-                <p className="text-xs font-bold text-accent uppercase tracking-widest">{award.organization} | {award.year}</p>
-                <p className="text-xs text-muted-foreground leading-relaxed">{award.desc}</p>
-              </motion.div>
+                <div className="flex flex-col text-left whitespace-normal">
+                  <h3 className="text-lg font-bold text-white mb-1 font-sans">{cred.title}</h3>
+                  <p className="text-xs text-zinc-300 font-sans leading-relaxed">{cred.desc}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -428,3 +450,4 @@ export default function AboutPage() {
     </main>
   );
 }
+

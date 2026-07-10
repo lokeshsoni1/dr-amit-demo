@@ -81,34 +81,25 @@ export function WhyChooseUsSection() {
                 const startProgress = index * 0.22;
                 const endProgress = startProgress + 0.25;
 
-                // Card scale transform
-                // Scales up from offscreen down below to top center
-                // Subsequent cards will push previous cards to scale 0.94 and 0.6 opacity
-                const y = useTransform(
-                  scrollYProgress,
-                  [0, startProgress, Math.min(startProgress + 0.1, 1), Math.min(endProgress, 1), Math.min(endProgress + 0.1, 1)],
-                  ["600px", "600px", "0px", "0px", "-40px"]
-                );
-
-                const scale = useTransform(
-                  scrollYProgress,
-                  [0, startProgress, Math.min(startProgress + 0.1, 1), Math.min(endProgress, 1), Math.min(endProgress + 0.1, 1)],
-                  [0.9, 0.9, 1, 1, 0.94]
-                );
-
-                const opacity = useTransform(
-                  scrollYProgress,
-                  [0, startProgress, Math.min(startProgress + 0.1, 1), Math.min(endProgress, 1), Math.min(endProgress + 0.1, 1)],
-                  [0, 0, 1, 1, 0.6]
-                );
+                // Stable desktop scroll entry reveal mapping configurations
+                const stableScrollVariant = {
+                  hidden: { opacity: 0, y: 30, filter: "blur(4px)" },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0, 
+                    filter: "blur(0px)",
+                    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } 
+                  }
+                };
 
                 return (
                   <motion.div
                     key={value.title}
+                    variants={stableScrollVariant}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-100px" }}
                     style={{
-                      y,
-                      scale,
-                      opacity,
                       background: "rgba(245, 250, 255, 0.08)",
                       backdropFilter: "blur(24px)",
                       WebkitBackdropFilter: "blur(24px)",

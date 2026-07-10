@@ -4,6 +4,8 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { PremiumIconButton } from "@/components/ui/button-with-icon";
+import { Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export default function FloatingGlassNavbar() {
   return (
@@ -28,7 +30,7 @@ export default function FloatingGlassNavbar() {
               fontFamily: "var(--font-caveat), cursive",
               willChange: "transform, opacity" 
             }}
-            className="text-3xl font-extrabold tracking-[0.18em] text-white flex select-none transform-gpu"
+            className="text-3xl font-extrabold tracking-[0.18em] text-white flex select-none transform-gpu scale-100 origin-left"
           >
             {Array.from("Bethany").map((char, index) => (
               <motion.span
@@ -53,8 +55,8 @@ export default function FloatingGlassNavbar() {
           </motion.div>
         </Link>
 
-        {/* System Navigation Center Gaps */}
-        <nav className="hidden md:flex items-center space-x-8 font-sans text-xs uppercase tracking-widest text-zinc-300 font-medium">
+        {/* System Navigation Center Gaps (Hidden <= 1024px) */}
+        <nav className="hidden lg:flex items-center space-x-8 font-sans text-xs uppercase tracking-widest text-zinc-300 font-medium">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
           <Link href="/services" className="hover:text-white transition-colors">Services</Link>
@@ -62,8 +64,8 @@ export default function FloatingGlassNavbar() {
           <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
         </nav>
 
-        {/* Integrated Icon Trigger Element */}
-        <div className="flex items-center">
+        {/* Desktop CTA (Hidden <= 1024px) */}
+        <div className="hidden lg:flex items-center">
           <Link href="/book-appointment">
             <PremiumIconButton 
               text="Book Appointment" 
@@ -72,10 +74,44 @@ export default function FloatingGlassNavbar() {
           </Link>
         </div>
 
+        {/* Mobile Hamburger Drawer overlay (Visible <= 1024px) */}
+        <div className="flex lg:hidden items-center">
+          <Sheet>
+            <SheetTrigger asChild>
+              <button className="p-1 hover:opacity-80 transition-opacity focus:outline-none">
+                <Menu className="h-6 w-6 text-white" />
+              </button>
+            </SheetTrigger>
+            <SheetContent side="right" className="bg-zinc-950/95 backdrop-blur-2xl border-l border-white/10 text-white w-80 p-8 flex flex-col justify-between z-[100] transform-gpu will-change-[transform,opacity]">
+              <div className="flex flex-col space-y-8 mt-12">
+                <div style={{ fontFamily: "var(--font-caveat), cursive" }} className="text-3xl font-extrabold text-white tracking-[0.18em]">
+                  Bethany
+                </div>
+                <nav className="flex flex-col space-y-6 text-base font-sans font-semibold tracking-wider text-zinc-300">
+                  <Link href="/" className="hover:text-white transition-colors">Home</Link>
+                  <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
+                  <Link href="/services" className="hover:text-white transition-colors">Services</Link>
+                  <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
+                  <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
+                </nav>
+              </div>
+              <div className="flex flex-col space-y-4">
+                <Link href="/book-appointment" className="w-full">
+                  <PremiumIconButton 
+                    text="Book Appointment" 
+                    className="w-full h-12 text-sm justify-center ps-6 pr-14"
+                  />
+                </Link>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+
       </div>
     </header>
   );
 }
 
 export { FloatingGlassNavbar as Navbar };
+
 

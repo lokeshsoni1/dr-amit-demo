@@ -1,179 +1,138 @@
 "use client";
 
-import { motion } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
-  Stethoscope,
+  Sparkles,
+  Shield,
   Activity,
-  Syringe,
-  Droplets,
-  Home,
-  Wind,
-  TestTube,
-  Heart,
+  Award,
+  Zap,
   ArrowRight,
   CheckCircle2,
   Calendar,
   Phone,
   Clock,
-  Shield,
 } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { SectionHeading } from "@/components/section-heading";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 const services = [
   {
-    icon: Stethoscope,
-    title: "General Physician",
+    icon: Sparkles,
+    title: "Advanced Prosthodontics & Implantology",
     shortDescription:
-      "Comprehensive medical consultations for all ages with personalized treatment plans.",
+      "Restoring structural chewing vectors via premium titanium mapping.",
     description:
-      "Our general physician services cover a wide range of health concerns, from routine checkups to complex medical conditions. Our team takes a thorough approach to diagnosis and treatment, ensuring every patient receives personalized care.",
+      "Engineered mapping protocols targeting precise bite occlusion and custom tooth morphology. Implants are designed using bio-compatible medical titanium vectors for 100% chew load tolerance.",
     features: [
-      "Complete health assessments",
-      "Chronic disease management",
-      "Preventive care guidance",
-      "Health counseling",
-      "Prescription management",
-      "Referrals to specialists",
+      "Titanium implant anchors",
+      "Full arches restorative mapping",
+      "Precision porcelain crowns",
+      "Digital bite load testing",
+      "Neuromuscular bite adjustments",
+      "Structural chewing optimization",
     ],
+  },
+  {
+    icon: Zap,
+    title: "Laser Periodontal Therapy",
+    shortDescription:
+      "High-efficiency microbiological soft tissue sanitization.",
+    description:
+      "Advanced water laser energy targeting pockets of infection to perform surgical sanitization of gums without drills or incisions. Drastically minimizes healing downtime and mitigates blood loss.",
+    features: [
+      "Laser micro-organism target",
+      "Non-surgical soft tissue repair",
+      "Deep root decontamination",
+      "Accelerated recovery timeline",
+      "Zero incision protocols",
+      "Precision pocket depth shrink",
+    ],
+    featured: true,
   },
   {
     icon: Activity,
-    title: "Diabetes Management",
+    title: "3D Digital Orthodontic Scanning",
     shortDescription:
-      "Expert care and monitoring for diabetes with lifestyle guidance and medication management.",
+      "Engineered diagnostic telemetry for precision occlusion adjustment.",
     description:
-      "Our specialized diabetes care program helps patients manage their condition effectively through a combination of medication, lifestyle modifications, and regular monitoring. We work closely with each patient to develop a sustainable management plan.",
+      "High-fidelity intraoral optical scanners that map tooth positions down to the micron. Deploys simulation engines to preview alignment trajectories before initializing custom aligner runs.",
     features: [
-      "Blood sugar monitoring",
-      "HbA1c tracking",
-      "Diet and nutrition planning",
-      "Medication optimization",
-      "Complication prevention",
-      "Lifestyle coaching",
+      "Micron-precision scanning",
+      "Zero dental mold discomfort",
+      "Real-time visual simulations",
+      "Custom Invisalign sequencing",
+      "Bite displacement analytics",
+      "Digital progression archives",
+    ],
+  },
+  {
+    icon: Shield,
+    title: "Neuromuscular Orofacial Rejuvenation",
+    shortDescription:
+      "Mitigating structural masseter load and friction failure points.",
+    description:
+      "Focused therapeutic treatments designed to neutralize TMJ friction, alleviate deep jaw strain, and resolve chronic dental grinding patterns by tracking facial muscle load limits.",
+    features: [
+      "TMJ compression relief",
+      "Masseter muscle diagnostic scan",
+      "Bite alignment balancing",
+      "Night splint stabilization",
+      "Nerve pathway calming",
+      "Preventive enamel wear block",
+    ],
+  },
+  {
+    icon: Award,
+    title: "Elite Esthetic Smile Reconstruction",
+    shortDescription:
+      "Veneer smile designs using premium translucent ceramic overlays.",
+    description:
+      "Master-crafted ultra-thin porcelain veneers customized for your specific facial symmetry. Deploys light-refracting ceramic matrices that mimic natural enamel translucency perfectly.",
+    features: [
+      "Custom translucent ceramics",
+      "Facial symmetry smile design",
+      "Ultra-thin cosmetic overlays",
+      "High stain-resistant glazes",
+      "Precision enamel prep guides",
+      "Instant alignment makeover",
     ],
     featured: true,
-  },
-  {
-    icon: Syringe,
-    title: "Emergency Care",
-    shortDescription:
-      "Round-the-clock emergency medical services with rapid response protocols.",
-    description:
-      "When medical emergencies arise, our team is ready to provide immediate, life-saving care. We&apos;re equipped to handle a wide range of emergency situations with the urgency and expertise they require.",
-    features: [
-      "24/7 availability",
-      "Rapid response protocols",
-      "Emergency stabilization",
-      "Critical care support",
-      "Ambulance coordination",
-      "Hospital admission assistance",
-    ],
-  },
-  {
-    icon: Droplets,
-    title: "IV Fluids & Hydration",
-    shortDescription:
-      "Professional IV therapy for dehydration, vitamin infusions, and recovery support.",
-    description:
-      "Our IV therapy services provide rapid relief for dehydration and deliver essential nutrients directly to your system. Whether recovering from illness or seeking wellness optimization, our IV treatments are administered safely and effectively.",
-    features: [
-      "Dehydration treatment",
-      "Electrolyte replenishment",
-      "Vitamin infusions",
-      "Post-illness recovery",
-      "Energy boost therapy",
-      "Immune support",
-    ],
-  },
-  {
-    icon: Home,
-    title: "Home Visit Support",
-    shortDescription:
-      "Convenient medical care at your doorstep across Manhattan and New York City.",
-    description:
-      "We understand that visiting a clinic isn&apos;t always possible. Our home visit service brings quality medical care to your doorstep, perfect for elderly patients, those with mobility issues, or anyone who prefers the comfort of home.",
-    features: [
-      "In-home consultations",
-      "Elderly care",
-      "Post-operative checkups",
-      "Chronic condition monitoring",
-      "Sample collection",
-      "IV administration at home",
-    ],
-    featured: true,
-  },
-  {
-    icon: Wind,
-    title: "Oxygen Support",
-    shortDescription:
-      "Comprehensive respiratory care with oxygen therapy and monitoring services.",
-    description:
-      "For patients requiring respiratory support, we provide comprehensive oxygen therapy services. Our team ensures proper oxygen delivery and monitors patients to maintain optimal oxygen saturation levels.",
-    features: [
-      "Oxygen therapy",
-      "Saturation monitoring",
-      "Respiratory assessment",
-      "Equipment guidance",
-      "Home oxygen setup",
-      "Emergency respiratory care",
-    ],
-  },
-  {
-    icon: TestTube,
-    title: "Comprehensive Diagnostics",
-    shortDescription:
-      "Advanced diagnostic testing with quick results and expert interpretation.",
-    description:
-      "Accurate diagnosis is the foundation of effective treatment. Our diagnostic services utilize the latest testing methods to provide quick, reliable results that guide treatment decisions.",
-    features: [
-      "Blood tests",
-      "Urine analysis",
-      "ECG monitoring",
-      "Blood pressure monitoring",
-      "Glucose testing",
-      "Lipid profile",
-    ],
-  },
-  {
-    icon: Heart,
-    title: "Wellness Consultations",
-    shortDescription:
-      "Preventive health checkups and wellness programs for optimal health.",
-    description:
-      "Prevention is better than cure. Our wellness consultations help you stay ahead of potential health issues through regular checkups, lifestyle guidance, and personalized wellness programs.",
-    features: [
-      "Annual health checkups",
-      "Preventive screenings",
-      "Lifestyle counseling",
-      "Nutrition guidance",
-      "Stress management",
-      "Fitness recommendations",
-    ],
   },
 ];
 
 export default function ServicesPage() {
+  const [activeMobileIdx, setActiveMobileIdx] = useState(0);
+
+  // Auto interval engine for mobile spatial zoom pop-up sequencing
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveMobileIdx((prev) => (prev + 1) % services.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <main className="min-h-screen">
+    <main 
+      className="min-h-screen bg-cover bg-center bg-fixed relative overflow-hidden"
+      style={{
+        backgroundImage: "url('https://res.cloudinary.com/dbpdexty8/image/upload/v1783661877/Medical_clinic_lobby_web_background_202607101107_gr0wsb.jpg')"
+      }}
+    >
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative hero-padding overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
-        <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-gradient-to-br from-accent/10 to-transparent rounded-full blur-3xl -translate-y-1/2" />
-
-        <div className="container mx-auto container-gutter relative">
-          <div className="max-w-4xl">
+      <section className="relative pt-32 pb-16 sm:pt-36 sm:pb-20 lg:pt-44 lg:pb-28 overflow-hidden z-10">
+        <div className="container mx-auto container-gutter relative text-center">
+          <div className="max-w-4xl mx-auto">
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-block px-4 py-1.5 rounded-full bg-primary/5 text-xs font-medium tracking-wide uppercase text-primary mb-6"
+              className="inline-block px-4 py-1.5 rounded-full bg-white/20 text-xs font-semibold tracking-wide uppercase text-white mb-6 backdrop-blur-md"
             >
               Our Services
             </motion.span>
@@ -181,28 +140,26 @@ export default function ServicesPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mb-5 sm:mb-6"
+              className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 drop-shadow-lg"
             >
-              Comprehensive
+              Specialized
               <br />
-              <span className="text-gradient">Healthcare Services</span>
+              <span className="text-cyan-200">Dental Services</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-base sm:text-xl text-muted-foreground max-w-2xl leading-relaxed"
+              className="text-lg sm:text-2xl text-slate-100 max-w-3xl leading-relaxed mx-auto font-medium drop-shadow-md"
             >
-              From routine checkups to specialized care, we offer a complete
-              range of medical services designed to meet your health needs at
-              every stage of life.
+              From custom smile redesigns to high-precision implant diagnostics, we offer cutting-edge dental mapping inside NYC.
             </motion.p>
           </div>
         </div>
       </section>
 
-      {/* Quick Info */}
-      <section className="py-10 sm:py-12 border-y border-border bg-muted/30">
+      {/* Quick Info Bar */}
+      <section className="py-12 border-y border-white/10 bg-zinc-950/60 backdrop-blur-md relative z-10 text-white">
         <div className="container mx-auto container-gutter">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
@@ -212,14 +169,14 @@ export default function ServicesPage() {
                 description: "Mon-Sat: 9AM-8PM",
               },
               {
-                icon: Home,
-                title: "Home Visits",
-                description: "Available across New York City",
+                icon: Sparkles,
+                title: "Specialized Orthodontics",
+                description: "Advanced custom digital telemetry",
               },
               {
                 icon: Shield,
-                title: "Emergency Care",
-                description: "24/7 availability",
+                title: "Sterile Operatory",
+                description: "Safe neuromuscular sedation suites",
               },
             ].map((item, index) => (
               <motion.div
@@ -227,14 +184,20 @@ export default function ServicesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border"
+                style={{
+                  background: "rgba(255, 255, 255, 0.05)",
+                  backdropFilter: "blur(12px)",
+                  WebkitBackdropFilter: "blur(12px)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                }}
+                className="flex items-center gap-4 p-5 rounded-2xl border border-white/10"
               >
-                <div className="w-12 h-12 rounded-xl bg-primary/5 flex items-center justify-center shrink-0">
-                  <item.icon className="w-6 h-6 text-primary" />
+                <div className="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center shrink-0">
+                  <item.icon className="w-6 h-6 text-cyan-300" />
                 </div>
                 <div>
-                  <p className="font-semibold text-foreground">{item.title}</p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="font-semibold text-white">{item.title}</p>
+                  <p className="text-sm text-zinc-300">
                     {item.description}
                   </p>
                 </div>
@@ -244,163 +207,164 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Services List */}
-      <section className="section-padding">
+      {/* Services List - Desktop Zoom-Pop Reveal Engine (Viewport > 1024px) */}
+      <section className="hidden lg:block py-24 relative z-10">
         <div className="container mx-auto container-gutter">
-          <div className="space-y-14 sm:space-y-20 lg:space-y-28">
-            {services.map((service, index) => (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6 }}
-                id={service.title.toLowerCase().replace(/\s+/g, "-")}
-                className={cn(
-                  "grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center",
-                  index % 2 === 1 && "lg:flex-row-reverse"
-                )}
-              >
-                {/* Content */}
-                <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                  {service.featured && (
-                    <span className="inline-block px-3 py-1 rounded-full bg-accent/20 text-accent text-xs font-medium mb-4">
-                      Popular Service
-                    </span>
-                  )}
-                  <div className="flex items-center gap-4 mb-6">
-                    <div
-                      className={cn(
-                        "w-16 h-16 rounded-2xl flex items-center justify-center",
-                        service.featured ? "bg-primary" : "bg-primary/10"
-                      )}
-                    >
-                      <service.icon
-                        className={cn(
-                          "w-8 h-8",
-                          service.featured ? "text-accent" : "text-primary"
-                        )}
-                      />
-                    </div>
-                    <h2 className="text-2xl lg:text-4xl font-bold text-foreground">
-                      {service.title}
-                    </h2>
-                  </div>
-                  <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                    {service.description}
-                  </p>
+          <div className="space-y-24 max-w-5xl mx-auto">
+            {services.map((service, index) => {
+              // Stable desktop zoom-pop reveal mappings: expands/scales up out of viewport center
+              const stableZoomPopVariant = {
+                hidden: { opacity: 0, scale: 0.85, filter: "blur(4px)" },
+                visible: { 
+                  opacity: 1, 
+                  scale: 1, 
+                  filter: "blur(0px)",
+                  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } 
+                }
+              };
 
-                  {/* Features */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
-                    {service.features.map((feature) => (
-                      <div key={feature} className="flex items-center gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-accent shrink-0" />
-                        <span className="text-foreground text-sm">
-                          {feature}
-                        </span>
+              return (
+                <motion.div
+                  key={service.title}
+                  variants={stableZoomPopVariant}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-100px" }}
+                  style={{
+                    background: "rgba(255, 255, 255, 0.08)",
+                    backdropFilter: "blur(24px)",
+                    WebkitBackdropFilter: "blur(24px)",
+                    border: "1px solid rgba(255, 255, 255, 0.15)",
+                    willChange: "transform, opacity, backdrop-filter",
+                  }}
+                  className="rounded-3xl p-10 flex flex-row items-center justify-between gap-12 transform-gpu shadow-2xl"
+                >
+                  <div className="flex flex-col space-y-6 flex-grow text-white">
+                    <div className="flex items-center gap-4">
+                      <div className="w-14 h-14 rounded-2xl bg-cyan-500/20 flex items-center justify-center">
+                        <service.icon className="w-7 h-7 text-cyan-300" />
                       </div>
-                    ))}
-                  </div>
-
-                  <Button asChild size="lg" className="group">
-                    <Link href="/book-appointment">
-                      Book This Service
-                      <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-                    </Link>
-                  </Button>
-                </div>
-
-                {/* Visual */}
-                <div className={index % 2 === 1 ? "lg:order-1" : ""}>
-                  <div
-                    className={cn(
-                      "relative aspect-[4/3] rounded-3xl overflow-hidden",
-                      service.featured
-                        ? "bg-gradient-to-br from-primary via-primary to-navy"
-                        : "bg-gradient-to-br from-primary/10 to-accent/10"
-                    )}
-                  >
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <service.icon
-                        className={cn(
-                          "w-24 h-24",
-                          service.featured
-                            ? "text-accent/30"
-                            : "text-primary/20"
-                        )}
-                      />
+                      <h2 className="text-2xl lg:text-3xl font-bold tracking-tight text-white">
+                        {service.title}
+                      </h2>
                     </div>
-
-                    {/* Floating Elements */}
-                    {service.featured && (
-                      <>
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          whileInView={{ opacity: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: 0.3 }}
-                          className="absolute top-6 right-6 bg-white/10 backdrop-blur-sm rounded-xl p-4"
-                        >
-                          <p className="text-primary-foreground text-sm font-medium">
-                            24/7 Available
-                          </p>
-                        </motion.div>
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          whileInView={{ opacity: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: 0.4 }}
-                          className="absolute bottom-6 left-6 bg-white/10 backdrop-blur-sm rounded-xl p-4"
-                        >
-                          <p className="text-primary-foreground text-sm font-medium">
-                            Expert Care
-                          </p>
-                        </motion.div>
-                      </>
-                    )}
+                    <p className="text-base text-zinc-200 leading-relaxed max-w-xl">
+                      {service.description}
+                    </p>
+                    <div className="grid grid-cols-2 gap-3 pt-2">
+                      {service.features.map((feature) => (
+                        <div key={feature} className="flex items-center gap-3">
+                          <CheckCircle2 className="w-4 h-4 text-cyan-300 shrink-0" />
+                          <span className="text-zinc-100 text-sm">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <Button asChild size="lg" className="w-fit bg-cyan-500 hover:bg-cyan-600 text-black font-bold h-12 rounded-xl mt-4">
+                      <Link href="/book-appointment">
+                        Book Service
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Link>
+                    </Button>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
 
+      {/* Services List - Mobile Zoom-Pop Sequence Engine (Viewport <= 1024px) */}
+      <section className="lg:hidden py-16 px-4 relative z-10">
+        <div className="w-full max-w-[94vw] mx-auto h-[480px] relative flex items-center justify-center">
+          <AnimatePresence mode="wait">
+            {services.map((service, index) => {
+              if (index !== activeMobileIdx) return null;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.92 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.92 }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  style={{
+                    background: "rgba(255, 255, 255, 0.08)",
+                    backdropFilter: "blur(24px)",
+                    WebkitBackdropFilter: "blur(24px)",
+                    border: "1px solid rgba(255, 255, 255, 0.15)",
+                    willChange: "transform, opacity, backdrop-filter",
+                  }}
+                  className="absolute inset-0 flex flex-col p-6 rounded-3xl justify-between h-full transform-gpu shadow-2xl"
+                >
+                  <div className="flex flex-col space-y-4 text-white flex-grow">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center shrink-0">
+                        <service.icon className="w-6 h-6 text-cyan-300" />
+                      </div>
+                      <h2 className="text-xl font-bold tracking-tight leading-tight">
+                        {service.title}
+                      </h2>
+                    </div>
+                    <p className="text-xs text-zinc-200 leading-relaxed line-clamp-4">
+                      {service.description}
+                    </p>
+                    <div className="grid grid-cols-1 gap-2 pt-2">
+                      {service.features.slice(0, 4).map((feature) => (
+                        <div key={feature} className="flex items-center gap-2">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-cyan-300 shrink-0" />
+                          <span className="text-zinc-100 text-xs">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="pt-4 border-t border-white/10 mt-4">
+                    <Button asChild size="lg" className="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold h-12 rounded-xl">
+                      <Link href="/book-appointment">
+                        Book Now
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Link>
+                    </Button>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </div>
+      </section>
+
       {/* CTA Section */}
-      <section className="section-padding bg-muted/30">
-        <div className="container mx-auto container-gutter">
+      <section className="section-padding relative z-10 bg-zinc-950/60 border-t border-white/10 text-white mt-12">
+        <div className="container mx-auto container-gutter text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center max-w-3xl mx-auto"
+            className="max-w-3xl mx-auto"
           >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-primary/5 text-xs font-medium tracking-wide uppercase text-primary mb-4">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-white/20 text-xs font-semibold tracking-wide uppercase text-white mb-6 backdrop-blur-md">
               Get Started
             </span>
-            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-5 sm:mb-6 text-balance">
+            <h2 className="text-3xl sm:text-5xl font-bold text-white mb-6">
               Ready to Schedule Your Visit?
             </h2>
-            <p className="text-base sm:text-lg text-muted-foreground mb-8 sm:mb-10">
-              Book an appointment today and experience the difference of
-              personalized, compassionate healthcare.
+            <p className="text-base sm:text-lg text-slate-200 mb-8 sm:mb-10">
+              Book an appointment today and experience the difference of personalized, compassionate healthcare.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <Button
                 asChild
                 size="lg"
-                className="glass-dark text-primary-foreground shadow-glow w-full sm:w-auto"
+                className="bg-cyan-500 hover:bg-cyan-600 text-black font-bold h-12 rounded-xl w-full sm:w-auto"
               >
                 <Link href="/book-appointment">
                   <Calendar className="w-5 h-5 mr-2" />
                   Book Appointment
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
-                <Link href="tel:+919876543210">
+              <Button asChild size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10 h-12 rounded-xl w-full sm:w-auto">
+                <Link href="tel:+12125550199">
                   <Phone className="w-5 h-5 mr-2" />
-                  Call: +91 98765 43210
+                  Call: (212) 555-0199
                 </Link>
               </Button>
             </div>
@@ -412,3 +376,4 @@ export default function ServicesPage() {
     </main>
   );
 }
+

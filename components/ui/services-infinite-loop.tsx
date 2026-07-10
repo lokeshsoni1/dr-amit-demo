@@ -71,7 +71,7 @@ export function InfiniteServicesSlider() {
     <div 
       className="w-full py-20 lg:py-32 overflow-hidden border-y border-white/10 relative z-10 bg-cover bg-center"
       style={{
-        backgroundImage: "linear-gradient(rgba(9, 25, 44, 0.4), rgba(9, 25, 44, 0.75)), url('https://res.cloudinary.com/dbpdexty8/image/upload/v1783632651/Luxury_dental_clinic_interior_2K_202607100300_flsexz.jpg')",
+        backgroundImage: "url('https://res.cloudinary.com/dbpdexty8/image/upload/v1783632651/Luxury_dental_clinic_interior_2K_202607100300_flsexz.jpg')",
       }}
     >
       <div className="container mx-auto px-4 md:px-6 max-w-7xl relative z-10">
