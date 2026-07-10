@@ -235,7 +235,7 @@ export default function HomePage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.3 }}
-                  className="absolute -bottom-6 right-4 sm:-right-6 lg:right-6 bg-zinc-950/50 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6 max-w-[240px] sm:max-w-[280px]"
+                  className="absolute -bottom-6 right-4 sm:-right-6 lg:right-6 bg-[#09192c]/70 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-6 max-w-[240px] sm:max-w-[280px]"
                 >
                   <div className="flex items-center gap-4 mb-4">
                     <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center">

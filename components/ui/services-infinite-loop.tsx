@@ -94,10 +94,10 @@ export function InfiniteServicesSlider() {
                     style={{ backgroundImage: `url(${service.img})` }}
                   >
                     {/* Shadow Layer Gradient to protect glass text visibility */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent opacity-85 z-10 transition-opacity group-hover:opacity-95" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#09192c]/95 via-[#09192c]/30 to-transparent opacity-85 z-10 transition-opacity group-hover:opacity-95" />
 
                     {/* PREMIUM TARGETED GLASSMORPHISM TEXT BOX */}
-                    <div className="relative z-20 p-5 bg-zinc-950/40 backdrop-blur-xl m-4 rounded-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all duration-300 group-hover:bg-zinc-900/60 group-hover:border-white/20">
+                    <div className="relative z-20 p-5 bg-[#09192c]/80 backdrop-blur-xl m-4 rounded-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all duration-300 group-hover:bg-[#09192c]/90 group-hover:border-white/20">
                       
                       <div className="flex items-center justify-between mb-2">
                         <span className="font-mono text-lg font-black text-white tracking-tighter">

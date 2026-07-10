@@ -158,7 +158,7 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-block px-4 py-1.5 rounded-full bg-white/20 text-xs font-semibold tracking-wide uppercase text-white mb-6 backdrop-blur-md"
+              className="inline-block px-4 py-1.5 rounded-full bg-zinc-950/20 text-xs font-semibold tracking-wide uppercase text-zinc-950 mb-6 backdrop-blur-md"
             >
               About Bethany Dental Care
             </motion.span>
@@ -166,17 +166,17 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 drop-shadow-lg"
+              className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-zinc-950 mb-6 drop-shadow-sm"
             >
               Redefining Clinical
               <br />
-              <span className="text-cyan-200">Dental Excellence</span>
+              <span className="text-zinc-900">Dental Excellence</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg sm:text-2xl text-slate-100 max-w-3xl leading-relaxed drop-shadow-md mx-auto font-medium"
+              className="text-lg sm:text-2xl text-zinc-950 max-w-3xl leading-relaxed drop-shadow-sm mx-auto font-black"
             >
               For over two decades, Bethany Dental Care has delivered elite oral healthcare and anxiety-free dentistry to the regional community.
             </motion.p>
@@ -184,11 +184,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION A: Clinic Origins Narrative (Module 10 Clean Viewport Style) */}
-      <section className="py-16 sm:py-20 lg:py-24 relative z-10 bg-zinc-950 text-white border-b border-white/10">
+      {/* SECTION A: Clinic Origins Narrative (Module 10 Clean Viewport Style with rich black text) */}
+      <section className="py-16 sm:py-20 lg:py-24 relative z-10 bg-zinc-50 text-zinc-950 border-b border-zinc-200">
         <div className="container mx-auto container-gutter max-w-4xl text-center">
-          <div className="space-y-6 text-base sm:text-lg text-slate-300 leading-relaxed">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">Our Origins & Vision</h2>
+          <div className="space-y-6 text-base sm:text-lg text-zinc-900 leading-relaxed font-semibold">
+            <h2 className="text-3xl sm:text-4xl font-black text-zinc-950 mb-6">Our Origins & Vision</h2>
             <p>
               Bethany Dental Care was engineered over twenty years ago with a singular objective: to combine state-of-the-art digital dental mapping with a zero-anxiety clinical methodology. Located in the heart of Manhattan at 45 Rockefeller Plaza, our practice has grown from a single treatment room into a premier multi-disciplinary clinic serving thousands of professionals.
             </p>
@@ -199,8 +199,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION B: The Chronological Dots Timeline Chart (Module 9 Bidirectional) */}
-      <section ref={containerRef} className="py-20 sm:py-28 bg-zinc-900 border-b border-white/10 relative overflow-hidden">
+      {/* SECTION B: The Chronological Dots Timeline Chart (Module 9 Bidirectional, re-themed bg to deep corporate dark blue) */}
+      <section ref={containerRef} className="py-20 sm:py-28 bg-[#09192c] border-b border-white/10 relative overflow-hidden">
         <div className="container mx-auto container-gutter max-w-4xl">
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-white mb-16">Our Chronological Milestones</h2>
           
@@ -221,11 +221,11 @@ export default function AboutPage() {
                 className="relative"
               >
                 {/* Timeline Dot Indicator */}
-                <div className="absolute -left-[41px] top-1.5 w-6 h-6 rounded-full bg-zinc-900 border-2 border-cyan-400 flex items-center justify-center z-10 shadow-[0_0_15px_rgba(34,211,238,0.3)]">
+                <div className="absolute -left-[41px] top-1.5 w-6 h-6 rounded-full bg-[#09192c] border-2 border-cyan-400 flex items-center justify-center z-10 shadow-[0_0_15px_rgba(34,211,238,0.3)]">
                   <div className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
                 </div>
                 
-                <div className="bg-zinc-950/60 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-2xl hover:border-cyan-400/40 transition-all duration-300 transform-gpu hover:-translate-y-0.5">
+                <div className="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-2xl hover:border-cyan-400/40 transition-all duration-300 transform-gpu hover:-translate-y-0.5">
                   <span className="inline-block text-sm font-bold text-cyan-400 mb-1">{milestone.year}</span>
                   <h3 className="text-lg font-semibold text-white mb-2">{milestone.title}</h3>
                   <p className="text-sm text-zinc-300 leading-relaxed">{milestone.description}</p>
@@ -238,7 +238,7 @@ export default function AboutPage() {
 
       {/* SECTION C: The Clinical Team Grid Mesh Architecture (Module 6) */}
       <section 
-        className="relative overflow-hidden py-20 sm:py-28 z-10 bg-zinc-950"
+        className="relative overflow-hidden py-20 sm:py-28 z-10 bg-[#09192c]"
       >
         <div className="container mx-auto container-gutter relative z-10">
           <h2 className="text-3xl sm:text-5xl font-bold text-center text-white mb-4">Our Clinical Specialist Team</h2>
@@ -413,7 +413,7 @@ export default function AboutPage() {
       </section>
 
       {/* SECTION E: Infinite Marquee for Clinical Recognitions & Credentials (Module 8) */}
-      <section className="py-20 bg-zinc-950 border-t border-white/10 overflow-hidden relative z-10">
+      <section className="py-20 bg-[#09192c] border-t border-white/10 overflow-hidden relative z-10">
         <div className="container mx-auto container-gutter mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-white">Clinical Recognitions & Credentials</h2>
         </div>

@@ -82,7 +82,7 @@ export default function FloatingGlassNavbar() {
                 <Menu className="h-6 w-6 text-white" />
               </button>
             </SheetTrigger>
-            <SheetContent side="right" className="bg-zinc-950/95 backdrop-blur-2xl border-l border-white/10 text-white w-80 p-8 flex flex-col justify-between z-[100] transform-gpu will-change-[transform,opacity]">
+            <SheetContent side="right" className="bg-[#09192c]/95 backdrop-blur-2xl border-l border-white/10 text-white w-80 p-8 flex flex-col justify-between z-[100] transform-gpu will-change-[transform,opacity]">
               <div className="flex flex-col space-y-8 mt-12">
                 <div style={{ fontFamily: "var(--font-caveat), cursive" }} className="text-3xl font-extrabold text-white tracking-[0.18em]">
                   Bethany

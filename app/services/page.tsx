@@ -159,7 +159,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Quick Info Bar */}
-      <section className="py-12 border-y border-white/10 bg-zinc-950/60 backdrop-blur-md relative z-10 text-white">
+      <section className="py-12 border-y border-white/10 bg-[#09192c]/80 backdrop-blur-md relative z-10 text-white">
         <div className="container mx-auto container-gutter">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
@@ -332,7 +332,7 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="section-padding relative z-10 bg-zinc-950/60 border-t border-white/10 text-white mt-12">
+      <section className="section-padding relative z-10 bg-[#09192c]/80 border-t border-white/10 text-white mt-12">
         <div className="container mx-auto container-gutter text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
