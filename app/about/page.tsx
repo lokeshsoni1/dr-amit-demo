@@ -392,7 +392,7 @@ export default function AboutPage() {
       {/* SECTION D: Alternating Careers Matrix with Bidirectional Scroll Pinning (Module 2) */}
       <section 
         ref={careerRef} 
-        className="relative w-full min-h-[350vh] bg-[#09192c] overflow-visible"
+        className="relative w-full min-h-[300vh] bg-[#09192c] overflow-visible"
       >
         <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden">
           
@@ -429,7 +429,7 @@ export default function AboutPage() {
                 const y = useTransform(
                   careerScrollProgress,
                   [0, cardStart, p1, p2, p3],
-                  ["80vh", "80vh", "0px", "0px", "-20px"]
+                  ["60vh", "60vh", "0px", "0px", "-20px"]
                 );
 
                 const t1 = Math.max(0, cardStart - 0.05);
@@ -441,17 +441,17 @@ export default function AboutPage() {
                 const scale = useTransform(
                   careerScrollProgress,
                   [0, t1, t2, t3, t4, t5],
-                  [0.95, 0.95, 1.05, 1.05, 0.95, 0.95]
+                  [0.95, 0.95, 1.05, 1.05, 0.94, 0.94]
                 );
                 const opacity = useTransform(
                   careerScrollProgress,
                   [0, t1, t2, t3, t4, t5],
-                  [0, 0, 1, 1, 0.2, 0.2]
+                  [0, 0, 1, 1, 0.1, 0.1]
                 );
                 const filter = useTransform(
                   careerScrollProgress,
                   [0, t1, t2, t3, t4, t5],
-                  ["blur(4px)", "blur(4px)", "blur(0px)", "blur(0px)", "blur(2px)", "blur(2px)"]
+                  ["blur(4px)", "blur(4px)", "blur(0px)", "blur(0px)", "blur(4px)", "blur(4px)"]
                 );
 
                 return (
@@ -462,9 +462,11 @@ export default function AboutPage() {
                       scale,
                       opacity,
                       filter,
-                      background: "rgba(255, 255, 255, 0.12)",
-                      border: "1.5px solid rgba(255, 255, 255, 0.2)",
-                      borderRadius: "28px",
+                      background: "rgba(9, 29, 54, 0.85)",
+                      backdropFilter: "blur(24px)",
+                      WebkitBackdropFilter: "blur(24px)",
+                      border: "2px solid rgba(255, 255, 255, 0.15)",
+                      borderRadius: "24px",
                       padding: "2.5rem",
                       zIndex: idx + 1,
                       willChange: "transform, opacity, filter, backdrop-filter"
@@ -502,15 +504,15 @@ export default function AboutPage() {
                   return (
                     <motion.div
                       key={idx}
-                      initial={{ opacity: 0, scale: 0.96 }}
+                      initial={{ opacity: 0, scale: 0.93 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.96 }}
+                      exit={{ opacity: 0, scale: 0.93 }}
                       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                       style={{
-                        background: "rgba(255, 255, 255, 0.12)",
+                        background: "rgba(9, 29, 54, 0.85)",
                         backdropFilter: "blur(24px)",
                         WebkitBackdropFilter: "blur(24px)",
-                        border: "1.5px solid rgba(255, 255, 255, 0.2)",
+                        border: "2px solid rgba(255, 255, 255, 0.15)",
                         willChange: "transform, opacity, backdrop-filter",
                       }}
                       className="absolute inset-0 flex flex-col p-6 rounded-3xl justify-between h-full transform-gpu"
@@ -520,12 +522,12 @@ export default function AboutPage() {
                       </div>
                       <div className="text-white flex-grow flex flex-col justify-between">
                         <div>
-                          <h3 className="text-xl font-bold mb-1">{job.title}</h3>
+                          <h3 className="text-xl font-bold mb-1 text-white">{job.title}</h3>
                           <p className="text-xs text-cyan-300 font-semibold mb-3">{job.type}</p>
                           <p className="text-xs text-slate-200 leading-relaxed line-clamp-3">{job.description}</p>
                         </div>
                         <div className="pt-4 border-t border-white/10 flex items-center justify-between mt-4">
-                          <span className="text-sm font-bold">{job.salary}</span>
+                          <span className="text-sm font-bold text-white">{job.salary}</span>
                           <Link href="/contact" className="text-xs font-bold text-cyan-400 flex items-center gap-1 hover:underline">
                             Apply <ArrowRight className="w-3.5 h-3.5" />
                           </Link>
