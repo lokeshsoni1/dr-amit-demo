@@ -145,50 +145,67 @@ export default function AboutPage() {
     <main className="min-h-screen bg-background relative overflow-hidden">
       <Navbar />
 
-      {/* Hero Section & Background Swap (Module 10) */}
+      {/* Hero Section & Background Swap (Module 10 / Module 1 Glassmorphic Box) */}
       <section 
-        className="relative pt-32 pb-20 sm:pt-36 sm:pb-24 lg:pt-44 lg:pb-32 overflow-hidden bg-cover bg-center"
+        className="relative pt-32 pb-20 sm:pt-36 sm:pb-24 lg:pt-44 lg:pb-32 overflow-hidden bg-cover bg-center bg-fixed"
         style={{
           backgroundImage: "url('https://res.cloudinary.com/dbpdexty8/image/upload/v1783660908/Dental_operatory_with_plant_walls_202607101051_iyoets.jpg')"
         }}
       >
         <div className="container mx-auto container-gutter relative z-10 flex flex-col items-center justify-center text-center">
-          <div className="max-w-4xl">
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-block px-4 py-1.5 rounded-full bg-zinc-950/20 text-xs font-semibold tracking-wide uppercase text-zinc-950 mb-6 backdrop-blur-md"
-            >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            style={{
+              background: "rgba(255, 255, 255, 0.07)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              border: "1px solid rgba(255, 255, 255, 0.15)",
+              borderRadius: "20px",
+              padding: "2.5rem",
+              boxShadow: "0 15px 35px rgba(0,0,0,0.15)",
+              willChange: "transform, opacity, backdrop-filter"
+            }}
+            className="max-w-4xl transform-gpu"
+          >
+            <span className="inline-block px-4 py-1.5 rounded-full bg-white/20 text-xs font-semibold tracking-wide uppercase text-white mb-6 backdrop-blur-md">
               About Bethany Dental Care
-            </motion.span>
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-zinc-950 mb-6 drop-shadow-sm"
-            >
+            </span>
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 drop-shadow-md">
               Redefining Clinical
               <br />
-              <span className="text-zinc-900">Dental Excellence</span>
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg sm:text-2xl text-zinc-950 max-w-3xl leading-relaxed drop-shadow-sm mx-auto font-black"
-            >
+              <span className="text-cyan-200">Dental Excellence</span>
+            </h1>
+            <p className="text-lg sm:text-2xl text-slate-100 max-w-3xl leading-relaxed drop-shadow-md mx-auto font-medium">
               For over two decades, Bethany Dental Care has delivered elite oral healthcare and anxiety-free dentistry to the regional community.
-            </motion.p>
-          </div>
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      {/* SECTION A: Clinic Origins Narrative (Module 10 Clean Viewport Style with rich black text) */}
-      <section className="py-16 sm:py-20 lg:py-24 relative z-10 bg-zinc-50 text-zinc-950 border-b border-zinc-200">
+      {/* SECTION A: Clinic Origins Narrative (Module 2 plant-wall continuation & frosted card shield) */}
+      <section 
+        className="py-20 sm:py-28 relative z-10 bg-cover bg-center bg-fixed text-white border-b border-white/10"
+        style={{
+          backgroundImage: "url('https://res.cloudinary.com/dbpdexty8/image/upload/v1783660908/Dental_operatory_with_plant_walls_202607101051_iyoets.jpg')"
+        }}
+      >
         <div className="container mx-auto container-gutter max-w-4xl text-center">
-          <div className="space-y-6 text-base sm:text-lg text-zinc-900 leading-relaxed font-semibold">
-            <h2 className="text-3xl sm:text-4xl font-black text-zinc-950 mb-6">Our Origins & Vision</h2>
+          <div 
+            style={{
+              background: "rgba(255, 255, 255, 0.08)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              border: "1px solid rgba(255, 255, 255, 0.15)",
+              borderRadius: "24px",
+              padding: "3rem",
+              boxShadow: "0 15px 35px rgba(0,0,0,0.15)",
+              willChange: "transform, opacity, backdrop-filter"
+            }}
+            className="space-y-6 text-base sm:text-lg text-slate-200 leading-relaxed font-medium transform-gpu"
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">Our Origins & Vision</h2>
             <p>
               Bethany Dental Care was engineered over twenty years ago with a singular objective: to combine state-of-the-art digital dental mapping with a zero-anxiety clinical methodology. Located in the heart of Manhattan at 45 Rockefeller Plaza, our practice has grown from a single treatment room into a premier multi-disciplinary clinic serving thousands of professionals.
             </p>
@@ -199,7 +216,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION B: The Chronological Dots Timeline Chart (Module 9 Bidirectional, re-themed bg to deep corporate dark blue) */}
+      {/* SECTION B: The Chronological Dots Timeline Chart (Module 9 Bidirectional) */}
       <section ref={containerRef} className="py-20 sm:py-28 bg-[#09192c] border-b border-white/10 relative overflow-hidden">
         <div className="container mx-auto container-gutter max-w-4xl">
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-white mb-16">Our Chronological Milestones</h2>
@@ -236,65 +253,150 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION C: The Clinical Team Grid Mesh Architecture (Module 6) */}
+      {/* SECTION C: The Clinical Team Grid Mesh Architecture (Module 3 - 1-2-2 Balanced Geometry) */}
       <section 
-        className="relative overflow-hidden py-20 sm:py-28 z-10 bg-[#09192c]"
+        className="relative overflow-hidden py-20 sm:py-28 z-10 bg-cover bg-center"
+        style={{
+          backgroundImage: "linear-gradient(rgba(9, 25, 44, 0.4), rgba(9, 25, 44, 0.4)), url('https://res.cloudinary.com/dbpdexty8/image/upload/v1783632655/Biophilic_dental_clinic_interior__2K_202607100259_ml5l2w.jpg')"
+        }}
       >
         <div className="container mx-auto container-gutter relative z-10">
           <h2 className="text-3xl sm:text-5xl font-bold text-center text-white mb-4">Our Clinical Specialist Team</h2>
-          <p className="text-center text-zinc-400 max-w-xl mx-auto mb-20 text-base sm:text-lg">
+          <p className="text-center text-zinc-300 max-w-xl mx-auto mb-20 text-base sm:text-lg">
             A collaborative panel of elite clinicians, each holding credentials from leading institutions.
           </p>
 
-          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
-            {team.map((doctor, idx) => (
+          <div className="max-w-6xl mx-auto flex flex-col space-y-8">
+            
+            {/* Top row: Centralized Lead Doctor (Sarah Bethany) */}
+            <div className="flex justify-center w-full">
               <motion.div
-                key={idx}
                 initial={{ opacity: 0, y: 35 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.08 }}
+                transition={{ duration: 0.6 }}
                 style={{
                   background: "rgba(255, 255, 255, 0.05)",
-                  backdropFilter: "blur(12px)",
-                  WebkitBackdropFilter: "blur(12px)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
-                  borderRadius: "20px",
+                  backdropFilter: "blur(16px)",
+                  WebkitBackdropFilter: "blur(16px)",
+                  border: "1px solid rgba(255, 255, 255, 0.12)",
+                  borderRadius: "24px",
+                  boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)",
                 }}
-                className="overflow-hidden shadow-2xl transition-all duration-300 hover:border-cyan-400/50 hover:-translate-y-1 transform-gpu group"
+                className="w-full max-w-md overflow-hidden transition-all duration-300 hover:border-cyan-400/50 hover:-translate-y-1 transform-gpu group"
               >
-                {/* Apply strict aspect frame calculations w-full h-[420px] object-cover object-top rounded-2xl */}
                 <div className="w-full h-[420px] overflow-hidden bg-zinc-900 rounded-t-2xl relative">
                   <img 
-                    src={doctor.image} 
-                    alt={doctor.name} 
+                    src={team[0].image} 
+                    alt={team[0].name} 
                     className="w-full h-[420px] object-cover object-top group-hover:scale-105 transition-transform duration-500 rounded-t-2xl" 
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-1">{doctor.name}</h3>
+                  <h3 className="text-xl font-bold text-white mb-1">{team[0].name}</h3>
                   <p 
                     style={{ color: "#115e59" }} 
-                    className="text-xs font-bold text-teal-800 tracking-widest uppercase mb-3"
+                    className="text-xs font-bold tracking-widest uppercase mb-3 text-teal-800"
                   >
-                    {doctor.title}
+                    {team[0].title}
                   </p>
-                  <p className="text-xs text-zinc-300">{doctor.degree}</p>
+                  <p className="text-xs text-zinc-300">{team[0].degree}</p>
                 </div>
               </motion.div>
-            ))}
+            </div>
+
+            {/* Row 2: Two doctors side-by-side (Chang & Rostova) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mx-auto">
+              {team.slice(1, 3).map((doctor, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 35 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: idx * 0.1 }}
+                  style={{
+                    background: "rgba(255, 255, 255, 0.05)",
+                    backdropFilter: "blur(16px)",
+                    WebkitBackdropFilter: "blur(16px)",
+                    border: "1px solid rgba(255, 255, 255, 0.12)",
+                    borderRadius: "24px",
+                    boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)",
+                  }}
+                  className="overflow-hidden transition-all duration-300 hover:border-cyan-400/50 hover:-translate-y-1 transform-gpu group"
+                >
+                  <div className="w-full h-[420px] overflow-hidden bg-zinc-900 rounded-t-2xl relative">
+                    <img 
+                      src={doctor.image} 
+                      alt={doctor.name} 
+                      className="w-full h-[420px] object-cover object-top group-hover:scale-105 transition-transform duration-500 rounded-t-2xl" 
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-lg font-bold text-white mb-1">{doctor.name}</h3>
+                    <p 
+                      style={{ color: "#115e59" }} 
+                      className="text-xs font-bold tracking-widest uppercase mb-2 text-teal-800"
+                    >
+                      {doctor.title}
+                    </p>
+                    <p className="text-xs text-zinc-300">{doctor.degree}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Row 3: Two doctors side-by-side (Al-Fayed & Brody) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mx-auto">
+              {team.slice(3, 5).map((doctor, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 35 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: idx * 0.1 }}
+                  style={{
+                    background: "rgba(255, 255, 255, 0.05)",
+                    backdropFilter: "blur(16px)",
+                    WebkitBackdropFilter: "blur(16px)",
+                    border: "1px solid rgba(255, 255, 255, 0.12)",
+                    borderRadius: "24px",
+                    boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)",
+                  }}
+                  className="overflow-hidden transition-all duration-300 hover:border-cyan-400/50 hover:-translate-y-1 transform-gpu group"
+                >
+                  <div className="w-full h-[420px] overflow-hidden bg-zinc-900 rounded-t-2xl relative">
+                    <img 
+                      src={doctor.image} 
+                      alt={doctor.name} 
+                      className="w-full h-[420px] object-cover object-top group-hover:scale-105 transition-transform duration-500 rounded-t-2xl" 
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-lg font-bold text-white mb-1">{doctor.name}</h3>
+                    <p 
+                      style={{ color: "#115e59" }} 
+                      className="text-xs font-bold tracking-widest uppercase mb-2 text-teal-800"
+                    >
+                      {doctor.title}
+                    </p>
+                    <p className="text-xs text-zinc-300">{doctor.degree}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* SECTION D: Alternating Careers Matrix with Dual-Motion Layouts (Module 7) */}
-      <section ref={careerRef} className="py-20 sm:py-32 bg-[#09192c] relative z-10 overflow-visible">
-        {/* Background glow ambient */}
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-cyan-500 rounded-full blur-[120px]" />
-          <div className="absolute bottom-0 left-0 w-[40rem] h-[40rem] bg-indigo-500 rounded-full blur-[120px]" />
-        </div>
-
+      {/* SECTION D: Alternating Careers Matrix with Bidirectional Scroll Active Pop Reveal (Module 4) */}
+      <section 
+        ref={careerRef} 
+        className="py-20 sm:py-32 bg-cover bg-center relative z-10 overflow-visible"
+        style={{
+          backgroundImage: "linear-gradient(rgba(9, 25, 44, 0.4), rgba(9, 25, 44, 0.4)), url('https://res.cloudinary.com/dbpdexty8/image/upload/v1783632655/Biophilic_dental_clinic_interior__2K_202607100259_ml5l2w.jpg')"
+        }}
+      >
         <div className="container mx-auto container-gutter max-w-6xl relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-3xl sm:text-5xl font-bold text-white mb-4">Join Our Practice</h2>
@@ -308,7 +410,7 @@ export default function AboutPage() {
             {jobs.map((job, idx) => {
               const isOdd = idx % 2 !== 0;
 
-              // Bind scaling inputs to scroll progress
+              // Bind scaling inputs to scroll progress for bidirectional pop reveal
               const cardStart = idx * 0.28;
               const cardEnd = cardStart + 0.3;
 
@@ -317,15 +419,22 @@ export default function AboutPage() {
                 [0, cardStart, Math.min(cardStart + 0.08, 1), Math.min(cardEnd, 1), Math.min(cardEnd + 0.08, 1)],
                 ["300px", "300px", "0px", "0px", "-20px"]
               );
+
+              // active is scale 1.05 and opacity 1, filter blur 0px. alternate is scale 0.95, opacity 0.2, filter blur 2px
               const scale = useTransform(
                 careerScrollProgress,
-                [0, cardStart, Math.min(cardStart + 0.08, 1), Math.min(cardEnd, 1), Math.min(cardEnd + 0.08, 1)],
-                [0.94, 0.94, 1, 1, 0.94]
+                [0, cardStart - 0.05, cardStart, Math.min(cardStart + 0.08, 1), Math.min(cardEnd, 1), Math.min(cardEnd + 0.05, 1)],
+                [0.95, 0.95, 1.05, 1.05, 0.95, 0.95]
               );
               const opacity = useTransform(
                 careerScrollProgress,
-                [0, cardStart, Math.min(cardStart + 0.08, 1), Math.min(cardEnd, 1), Math.min(cardEnd + 0.08, 1)],
-                [0.4, 0.4, 1, 1, 0.6]
+                [0, cardStart - 0.05, cardStart, Math.min(cardStart + 0.08, 1), Math.min(cardEnd, 1), Math.min(cardEnd + 0.05, 1)],
+                [0.2, 0.2, 1, 1, 0.2, 0.2]
+              );
+              const filter = useTransform(
+                careerScrollProgress,
+                [0, cardStart - 0.05, cardStart, Math.min(cardStart + 0.08, 1), Math.min(cardEnd, 1), Math.min(cardEnd + 0.05, 1)],
+                ["blur(2px)", "blur(2px)", "blur(0px)", "blur(0px)", "blur(2px)", "blur(2px)"]
               );
 
               return (
@@ -335,11 +444,12 @@ export default function AboutPage() {
                     y,
                     scale,
                     opacity,
+                    filter,
                     background: "rgba(245, 250, 255, 0.08)",
                     backdropFilter: "blur(24px)",
                     WebkitBackdropFilter: "blur(24px)",
                     border: "1px solid rgba(245, 250, 255, 0.12)",
-                    willChange: "transform, opacity, backdrop-filter",
+                    willChange: "transform, opacity, filter, backdrop-filter",
                     zIndex: idx + 1,
                   }}
                   className={`rounded-3xl p-8 flex flex-row items-center justify-between w-full gap-12 transform-gpu shadow-2xl ${
@@ -412,10 +522,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* SECTION E: Infinite Marquee for Clinical Recognitions & Credentials (Module 8) */}
-      <section className="py-20 bg-[#09192c] border-t border-white/10 overflow-hidden relative z-10">
+      {/* SECTION E: High-Density Sweet Light Blue Recognition Marquee (Module 5) */}
+      <section className="py-20 bg-sky-50 border-t border-sky-100 overflow-hidden relative z-10">
         <div className="container mx-auto container-gutter mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-white">Clinical Recognitions & Credentials</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-center text-slate-900">Clinical Recognitions & Credentials</h2>
         </div>
 
         {/* Seamless horizontal infinite loop marquee sliding from left to right */}
@@ -426,19 +536,21 @@ export default function AboutPage() {
               <div
                 key={idx}
                 style={{
-                  background: "rgba(255, 255, 255, 0.05)",
-                  backdropFilter: "blur(12px)",
-                  WebkitBackdropFilter: "blur(12px)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  background: "rgba(255, 255, 255, 0.45)",
+                  backdropFilter: "blur(20px)",
+                  WebkitBackdropFilter: "blur(20px)",
+                  border: "1.5px solid rgba(14, 165, 233, 0.25)",
+                  borderRadius: "28px",
+                  boxShadow: "0 20px 40px rgba(14, 165, 233, 0.06)",
                 }}
-                className="inline-flex items-center gap-6 p-6 rounded-2xl min-w-[320px] sm:min-w-[420px] backdrop-blur-xl border border-white/10 select-none pointer-events-none"
+                className="inline-flex items-center gap-8 p-8 rounded-[28px] min-w-[380px] sm:min-w-[480px] select-none pointer-events-none transform-gpu"
               >
-                <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0 border border-white/10 bg-zinc-900">
+                <div className="w-24 h-24 rounded-2xl overflow-hidden shrink-0 border border-slate-200 bg-white">
                   <img src={cred.image} alt={cred.title} className="w-full h-full object-cover object-center" />
                 </div>
                 <div className="flex flex-col text-left whitespace-normal">
-                  <h3 className="text-lg font-bold text-white mb-1 font-sans">{cred.title}</h3>
-                  <p className="text-xs text-zinc-300 font-sans leading-relaxed">{cred.desc}</p>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2 font-sans">{cred.title}</h3>
+                  <p className="text-sm text-slate-700 font-sans leading-relaxed">{cred.desc}</p>
                 </div>
               </div>
             ))}
