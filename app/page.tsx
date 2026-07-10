@@ -269,26 +269,26 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
                 style={{
-                  background: "rgba(255, 255, 255, 0.08)",
-                  backdropFilter: "blur(16px)",
-                  WebkitBackdropFilter: "blur(16px)",
-                  border: "1px solid rgba(255, 255, 255, 0.15)",
+                  background: "rgba(9, 29, 54, 0.92)",
+                  backdropFilter: "blur(20px)",
+                  WebkitBackdropFilter: "blur(20px)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
                   borderRadius: "24px",
-                  padding: "2.5rem",
+                  padding: "3rem",
                 }}
               >
-                <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-xs font-semibold tracking-wide uppercase text-[#ffffff] mb-4">
+                <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-xs font-semibold tracking-wide uppercase text-white mb-4">
                   Meet Your Doctor
                 </span>
-                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-[#ffffff] mb-5 sm:mb-6">
+                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-5 sm:mb-6">
                   Dr. Sarah Bethany
                 </h2>
-                <p className="text-lg text-[#e4e4e7] leading-relaxed mb-6">
+                <p className="text-lg text-zinc-200 leading-relaxed mb-6">
                   With over 15 years of dedicated dental practice, Dr. Sarah
                   Bethany brings a unique combination of clinical expertise and
                   compassionate care to every patient interaction.
                 </p>
-                <p className="text-[#e4e4e7] leading-relaxed mb-8 font-medium">
+                <p className="text-zinc-200 leading-relaxed mb-8 font-medium">
                   After completing her DDS and DMD from prestigious institutions,
                   Dr. Bethany has been serving the New York City community with a
                   patient-first philosophy. Her approach combines modern dental
@@ -382,10 +382,10 @@ export default function HomePage() {
               </div>
 
               <div className="relative text-center max-w-3xl mx-auto z-10">
-                <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#ffffff] mb-5 sm:mb-6 text-balance">
+                <h2 style={{ color: "#0f172a" }} className="text-2xl sm:text-4xl lg:text-5xl font-extrabold mb-5 sm:mb-6 text-balance">
                   Ready to Experience Premium Healthcare?
                 </h2>
-                <p className="text-base sm:text-lg text-cyan-100 mb-8 sm:mb-10 text-pretty font-medium">
+                <p style={{ color: "#1e3a8a" }} className="text-base sm:text-lg mb-8 sm:mb-10 text-pretty font-semibold">
                   Schedule your consultation today and take the first step towards
                   better oral health.
                 </p>
@@ -401,15 +401,12 @@ export default function HomePage() {
                     size="lg"
                     variant="outline"
                     style={{
-                      background: "rgba(255, 255, 255, 0.12)",
-                      backdropFilter: "blur(12px)",
-                      WebkitBackdropFilter: "blur(12px)",
-                      border: "1px solid rgba(255, 255, 255, 0.25)",
-                      color: "#ffffff",
-                      fontWeight: 700,
-                      transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                      background: "rgba(9, 29, 54, 0.08)",
+                      border: "2px solid #0f172a",
+                      color: "#0f172a",
+                      fontWeight: 800,
                     }}
-                    className="text-white hover:bg-white/20 hover:text-white text-sm h-12 rounded-full px-8 w-full sm:w-auto transform-gpu hover:scale-[1.02] inline-flex items-center justify-center will-change-[transform,opacity,backdrop-filter]"
+                    className="hover:bg-[#0f172a] hover:text-white text-sm h-12 rounded-full px-8 w-full sm:w-auto transform-gpu hover:scale-[1.02] inline-flex items-center justify-center transition-all duration-300 will-change-[transform,opacity]"
                   >
                     <Link href="tel:+12125550199">
                       <Phone className="w-4 h-4 mr-2" />

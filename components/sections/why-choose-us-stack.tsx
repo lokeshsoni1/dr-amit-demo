@@ -54,14 +54,14 @@ export function WhyChooseUsSection() {
   return (
     <>
       {/* Desktop scrolling stacking engine (>1024px) */}
-      <div ref={containerRef} className="hidden lg:block relative min-h-[300vh] bg-primary text-primary-foreground overflow-visible transform-gpu">
+      <div ref={containerRef} className="hidden lg:block relative min-h-[300vh] w-full overflow-visible transform-gpu bg-primary text-primary-foreground">
         {/* Background ambient elements */}
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-accent rounded-full blur-[120px]" />
           <div className="absolute bottom-0 left-0 w-[40rem] h-[40rem] bg-cyan rounded-full blur-[120px]" />
         </div>
 
-        <div className="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden px-8">
+        <div className="sticky top-[10vh] h-[80vh] w-full flex flex-col justify-center items-center overflow-visible px-8">
           <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             {/* Left Header content */}
@@ -81,25 +81,32 @@ export function WhyChooseUsSection() {
                 const startProgress = index * 0.22;
                 const endProgress = startProgress + 0.25;
 
-                // Stable desktop scroll entry reveal mapping configurations
-                const stableScrollVariant = {
-                  hidden: { opacity: 0, y: 30, filter: "blur(4px)" },
-                  visible: { 
-                    opacity: 1, 
-                    y: 0, 
-                    filter: "blur(0px)",
-                    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } 
-                  }
-                };
+                // Bind layout scaling inputs to natural scroll variables
+                const y = useTransform(
+                  scrollYProgress,
+                  [0, startProgress, Math.min(startProgress + 0.1, 1), Math.min(endProgress, 1), Math.min(endProgress + 0.1, 1)],
+                  ["60vh", "60vh", "0px", "0px", "-20px"]
+                );
+
+                const scale = useTransform(
+                  scrollYProgress,
+                  [0, startProgress, Math.min(startProgress + 0.1, 1), Math.min(endProgress, 1), Math.min(endProgress + 0.1, 1)],
+                  [0.9, 0.9, 1, 1, 0.95]
+                );
+
+                const opacity = useTransform(
+                  scrollYProgress,
+                  [0, startProgress, Math.min(startProgress + 0.1, 1), Math.min(endProgress, 1), Math.min(endProgress + 0.1, 1)],
+                  [0, 0, 1, 1, 0.5]
+                );
 
                 return (
                   <motion.div
                     key={value.title}
-                    variants={stableScrollVariant}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-100px" }}
                     style={{
+                      y,
+                      scale,
+                      opacity,
                       background: "rgba(245, 250, 255, 0.08)",
                       backdropFilter: "blur(24px)",
                       WebkitBackdropFilter: "blur(24px)",

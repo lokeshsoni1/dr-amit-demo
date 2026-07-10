@@ -79,8 +79,8 @@ export function InfiniteServicesSlider() {
           
           {/* Dynamic Core Header Section */}
           <div className="flex flex-col space-y-2 items-center text-center">
-            <h2 className="text-3xl md:text-5xl lg:text-6xl tracking-tighter font-bold text-white max-w-4xl leading-[1.15]">
-              Redefining Dental Excellence <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-sky-300 to-indigo-300 block sm:inline">Through Trust and Clinical Innovation.</span>
+            <h2 className="text-3xl md:text-5xl lg:text-6xl tracking-tighter font-black text-[#091d36] max-w-4xl leading-[1.15]">
+              Redefining Dental Excellence <span style={{ background: "linear-gradient(to right, #115e59, #1e3a8a)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", fontWeight: 900 }} className="block sm:inline">Through Trust and Clinical Innovation.</span>
             </h2>
           </div>
           
