@@ -219,9 +219,9 @@ export default function HomePage() {
                 transition={{ duration: 0.6 }}
                 className="relative"
               >
-                <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10">
+                <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-slate-200 animate-shimmer">
                   <Image
-                    src="https://res.cloudinary.com/dbpdexty8/image/upload/v1783536399/ChatGPT_Image_Jul_9_2026_12_14_21_AM_hspagz.png"
+                    src="https://res.cloudinary.com/dbpdexty8/image/upload/f_auto,q_auto:good,w_768/v1783536399/ChatGPT_Image_Jul_9_2026_12_14_21_AM_hspagz.png"
                     alt="Portrait of Dr. Sarah Bethany in a premium private clinic"
                     fill
                     priority

@@ -3,6 +3,7 @@ import { Inter, Caveat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { MobileCtaBar } from "@/components/mobile-cta-bar";
 import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
+import { LazyMotion, domMax } from "framer-motion";
 import "./globals.css";
 
 const inter = Inter({
@@ -68,10 +69,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="bg-background">
+      <head>
+        <link rel="preconnect" href="https://res.cloudinary.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+        {/* Preload critical hero backgrounds (desktop config default sizes) */}
+        <link 
+          rel="preload" 
+          as="image" 
+          href="https://res.cloudinary.com/dbpdexty8/image/upload/f_auto,q_auto:good,w_1920/v1783661877/Medical_clinic_lobby_web_background_202607101107_gr0wsb.jpg" 
+        />
+        <link 
+          rel="preload" 
+          as="image" 
+          href="https://res.cloudinary.com/dbpdexty8/image/upload/f_auto,q_auto:good,w_1920/v1783632651/Luxury_dental_clinic_interior_2K_202607100300_flsexz.jpg" 
+        />
+      </head>
       <body className={`${inter.variable} ${caveat.variable} font-sans antialiased`}>
         <SmoothScrollProvider>
-          {children}
-          <MobileCtaBar />
+          <LazyMotion features={domMax}>
+            {children}
+            <MobileCtaBar />
+          </LazyMotion>
         </SmoothScrollProvider>
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
